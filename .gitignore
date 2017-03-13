@@ -1,0 +1,10 @@
+# modules
+node_modules
+
+# generated
+dest
+.nyc*
+coverage
+
+# macOS
+.DS_STORE
