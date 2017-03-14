@@ -1164,6 +1164,14 @@ cross-spawn@^4, cross-spawn@^4.0.0:
     lru-cache "^4.0.1"
     which "^1.2.9"
 
+cross-spawn@^5.0.1:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
+  dependencies:
+    lru-cache "^4.0.1"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -1514,6 +1522,18 @@ execa@^0.5.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+execa@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.6.1.tgz#79eda42ade78c387718b0aad48e0f573b5525cde"
+  dependencies:
+    cross-spawn "^5.0.1"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -1746,6 +1766,10 @@ get-stream@^2.2.0:
   dependencies:
     object-assign "^4.0.1"
     pinkie-promise "^2.0.0"
+
+get-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
 getpass@^0.1.1:
   version "0.1.6"
@@ -3336,6 +3360,16 @@ set-blocking@^2.0.0, set-blocking@~2.0.0:
 set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
+
+shebang-command@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
+  dependencies:
+    shebang-regex "^1.0.0"
+
+shebang-regex@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
 
 shelljs@^0.7.5:
   version "0.7.7"
