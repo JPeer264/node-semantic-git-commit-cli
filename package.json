@@ -29,15 +29,6 @@
       "test"
     ]
   },
-  "sgc": {
-    "types": [
-      {
-        "emoji": ":emo:",
-        "prefix": "Add:",
-        "description": "Files added"
-      }
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JPeer264/node-semantic-git-commit-cli.git"
