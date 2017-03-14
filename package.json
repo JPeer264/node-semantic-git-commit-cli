@@ -1,10 +1,10 @@
 {
-  "name": "semantic-git-commits-cli",
+  "name": "semantic-git-commit-cli",
   "version": "0.0.0",
   "description": "",
   "main": "lib",
   "bin": {
-    "semantic-git-commits": "./dest/cli.js",
+    "semantic-git-commit": "./dest/cli.js",
     "sgc": "./dest/cli.js"
   },
   "scripts": {
@@ -39,14 +39,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JPeer264/node-semantic-git-commits-cli.git"
+    "url": "git+https://github.com/JPeer264/node-semantic-git-commit-cli.git"
   },
   "author": "Jan Peer Stöcklmair <janpeer264@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JPeer264/node-semantic-git-commits-cli/issues"
+    "url": "https://github.com/JPeer264/node-semantic-git-commit-cli/issues"
   },
-  "homepage": "https://github.com/JPeer264/node-semantic-git-commits-cli#readme",
+  "homepage": "https://github.com/JPeer264/node-semantic-git-commit-cli#readme",
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-cli": "^6.24.0",
