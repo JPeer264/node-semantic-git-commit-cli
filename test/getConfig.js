@@ -1,7 +1,7 @@
 import test from 'ava';
 import path from 'path';
 import json from 'json-extra';
-import fs from 'fs';
+import fs from 'fs-extra';
 import getConfig from '../lib/getConfig';
 
 const cwd = process.cwd();
@@ -20,24 +20,11 @@ test('read config from package.json', (t) => {
   let packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
   packageJson.sgc = sgcrc;
 
-  // copy package.json to package.json.back
-  Promise.resolve(fs.createReadStream(cwd + '/package.json')
-    .pipe(fs.createWriteStream(cwd + '/package.json.back')))
-    .then(() => {
-      // delete package.json
-      fs.unlink(cwd + '/package.json');
-    })
-    .then(() => {
-      // write new package.json with the sgc property
-      fs.writeFile(cwd + '/package.json', JSON.stringify(packageJson), () => {
-        // perform test
-        t.deepEqual(getConfig(), sgcrc);
-      });
-    }).then(() => {
-      // delete package.json
-      fs.unlink(cwd + '/package.json');
-    }).then(() => {
-      // restore package.json from package.json.back
-      fs.rename(cwd + '/package.json.back', cwd + '/package.json');
-    });
+  fs.createReadStream(cwd + '/package.json')
+    .pipe(fs.createWriteStream(cwd + '/package.json.back'));
+  fs.unlinkSync(cwd + '/package.json');
+  fs.writeFileSync(cwd + '/package.json', JSON.stringify(packageJson));
+  t.deepEqual(getConfig(), sgcrc);
+  fs.unlinkSync(cwd + '/package.json');
+  fs.renameSync(cwd + '/package.json.back', cwd + '/package.json');
 });
