@@ -15,7 +15,7 @@
     "postinstall": "npm run babel",
     "babel": "babel lib -d dest",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "precommit": "npm test"
+    "prepush": "npm test"
   },
   "files": [
     "lib"
