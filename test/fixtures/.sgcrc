@@ -1,0 +1,7 @@
+{
+  "types": [{
+    "emoji": ":emo:",
+    "prefix": "Add:",
+    "description": "Files added"
+  }]
+}
