@@ -1,7 +1,54 @@
 {
-  "types": [{
-    "emoji": ":emo:",
-    "prefix": "Add:",
-    "description": "Files added"
-  }]
+  "types": [
+    {
+      "emoji": ":emo:",
+      "prefix": "Add:",
+      "description": "Files added"
+    },
+    {
+      "emoji": ":wrench:",
+      "prefix": "Chore:",
+      "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm) and moving files"
+    },
+    {
+      "emoji": ":construction_worker:",
+      "prefix": "CI:",
+      "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+    },
+    {
+      "emoji": ":memo:",
+      "prefix": "Docs:",
+      "description": "Documentation only changes"
+    },
+    {
+      "emoji": ":sparkles:",
+      "prefix": "Feat:",
+      "description": "A new feature"
+    },
+    {
+      "emoji": ":bug:",
+      "prefix": "Fix:",
+      "description": "A bug fix"
+    },
+    {
+      "emoji": ":zapr:",
+      "prefix": "Perf:",
+      "description": "A code change that improves performance"
+    },
+    {
+      "emoji": ":hammer:",
+      "prefix": "Refactor:",
+      "description": "A code change that neither fixes a bug nor adds a feature"
+    },
+    {
+      "emoji": ":art:",
+      "prefix": "Style:",
+      "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+    },
+    {
+      "emoji": ":white_check_mark:",
+      "prefix": "Test:",
+      "description": "Adding missing tests or correcting existing tests"
+    }
+  ]
 }
