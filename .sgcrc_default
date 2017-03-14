@@ -1,11 +1,6 @@
 {
   "types": [
     {
-      "emoji": ":emo:",
-      "prefix": "Add:",
-      "description": "Files added"
-    },
-    {
       "emoji": ":wrench:",
       "prefix": "Chore:",
       "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm) and moving files"
