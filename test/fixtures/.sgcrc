@@ -2,7 +2,7 @@
   "types": [
     {
       "emoji": ":emo:",
-      "prefix": "Add:",
+      "type": "Add:",
       "description": "Files added"
     }
   ]
