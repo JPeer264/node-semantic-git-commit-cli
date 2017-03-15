@@ -10,7 +10,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "nyc ava",
-    "lint": "eslint lib tests",
+    "lint": "eslint lib test",
     "prepublish": "npm test",
     "postinstall": "npm run babel",
     "babel": "babel lib -d dest",
