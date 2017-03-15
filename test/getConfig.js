@@ -20,10 +20,10 @@ test('read config from package.json', (t) => {
   const packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
   packageJson.sgc = sgcrc;
 
-  fs.copySync(`${cwd}/package.json`, `${cwd}/package.json.back`);
-  fs.unlinkSync(`${cwd}/package.json`);
-  fs.writeFileSync(`${cwd}/package.json`, JSON.stringify(packageJson));
+  fs.copySync(path.join(cwd, 'package.json'), path.join(cwd, 'package.json.back'));
+  fs.unlinkSync(path.join(cwd, 'package.json'));
+  fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(packageJson));
   t.deepEqual(getConfig(), sgcrc);
-  fs.unlinkSync(`${cwd}/package.json`);
-  fs.renameSync(`${cwd}/package.json.back`, `${cwd}/package.json`);
+  fs.unlinkSync(path.join(cwd, 'package.json'));
+  fs.renameSync(path.join(cwd, 'package.json.back'), path.join(cwd, 'package.json'));
 });
