@@ -37,8 +37,8 @@ $ sgc
 
 **Keys**
 
-- `prefix` - This will be your commit convention and will be your start of your commit - e.g.: `Feat:`
-- `description` (optional) - The description to explain what your prefix is about
+- `type` - This will be your commit convention and will be your start of your commit - e.g.: `Feat:`
+- `description` (optional) - The description to explain what your type is about
 - `emoji` (optional) - An emoji which will be appended at the beginning of the commit ([Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/))
 
 The `.sgcrc`:
@@ -48,8 +48,8 @@ The `.sgcrc`:
     "types": [
       {
         "emoji": ":sparkles:",
-        "prefix": "Feat:",
-        "description": "Any description to describe the prefix"
+        "type": "Feat:",
+        "description": "Any description to describe the type"
       }
     ]
 }
@@ -65,8 +65,8 @@ The `package.json`:
         "types": [
             {
               "emoji": ":sparkles:",
-              "prefix": "Feat:",
-              "description": "Any description to describe the prefix"
+              "type": "Feat:",
+              "description": "Any description to describe the type"
             }
         ]
     }
