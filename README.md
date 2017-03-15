@@ -4,6 +4,8 @@
 
 > A CLI to keep semantic git commits. With emoji support 😄 👍
 
+<img src="media/screenshot.gif">
+
 ## Why?
 
 Many projects got different git commit rules. It is hard to remember them all.
