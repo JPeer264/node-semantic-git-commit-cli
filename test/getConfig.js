@@ -16,15 +16,14 @@ test('read config from a .sgcrc_default', (t) => {
 });
 
 test('read config from package.json', (t) => {
-  let sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
-  let packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
+  const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
+  const packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
   packageJson.sgc = sgcrc;
 
-  fs.createReadStream(cwd + '/package.json')
-    .pipe(fs.createWriteStream(cwd + '/package.json.back'));
-  fs.unlinkSync(cwd + '/package.json');
-  fs.writeFileSync(cwd + '/package.json', JSON.stringify(packageJson));
+  fs.copySync(`${cwd}/package.json`, `${cwd}/package.json.back`);
+  fs.unlinkSync(`${cwd}/package.json`);
+  fs.writeFileSync(`${cwd}/package.json`, JSON.stringify(packageJson));
   t.deepEqual(getConfig(), sgcrc);
-  fs.unlinkSync(cwd + '/package.json');
-  fs.renameSync(cwd + '/package.json.back', cwd + '/package.json');
+  fs.unlinkSync(`${cwd}/package.json`);
+  fs.renameSync(`${cwd}/package.json.back`, `${cwd}/package.json`);
 });
