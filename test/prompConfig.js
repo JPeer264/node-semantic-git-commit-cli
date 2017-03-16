@@ -21,17 +21,20 @@ test('choises are the same as choises generated from .sgcrc_default', (t) => {
   const choices = cli.choices(config);
   const choicesList = [];
 
-  sgc.types.forEach((type) => {
-    const emoji = `${type.emoji} ` || '';
-    const configType = type.type;
-    const description = type.description || '';
+  Promise.resolve(() => {
+    sgc.types.forEach((type) => {
+      const emoji = `${type.emoji} ` || '';
+      const configType = type.type;
+      const description = type.description || '';
 
-    choicesList.push({
-      value: emoji + configType,
-      name: `${chalk.bold(configType)} ${description}`,
+      choicesList.push({
+        value: emoji + configType,
+        name: `${chalk.bold(configType)} ${description}`,
+      });
+    }).then(() => {
+      t.deepEqual(choices, choicesList);
     });
   });
-  t.deepEqual(choices, choicesList);
 });
 
 test('check the values of the question object', (t) => {
@@ -76,7 +79,7 @@ test('check cli', (t) => {
   ];
   const cli = promptConfig;
   return Promise.resolve(cli.prompt(questions))
-  .then((res) => {
-    t.deepEqual('2', res);
-  });
+    .then((res) => {
+      t.deepEqual('2', res);
+    });
 });
