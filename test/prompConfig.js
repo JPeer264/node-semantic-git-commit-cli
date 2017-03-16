@@ -3,17 +3,17 @@ import path from 'path';
 import chalk from 'chalk';
 import json from 'json-extra';
 import getConfig from '../lib/getConfig';
-import { config, choices, questions } from '../lib/promptConfig';
+import { choices, questions } from '../lib/promptConfig';
 
 const cwd = process.cwd();
 
 test('get configuration file equals .sgcrc_default', (t) => {
-  t.deepEqual(config(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
+  t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
 test('choices are the same as choices generated from .sgcrc_default', (t) => {
   const sgc = getConfig();
-  const configuration = config();
+  const configuration = getConfig();
   const choicesList = choices(configuration);
   const choicesArray = [];
 
@@ -34,7 +34,7 @@ test('choices are the same as choices generated from .sgcrc_default', (t) => {
 });
 
 test('check the values of the question object', (t) => {
-  const configuration = config();
+  const configuration = getConfig();
   const choicesList = choices(configuration);
   const questionsList = questions(choicesList);
 
@@ -42,7 +42,7 @@ test('check the values of the question object', (t) => {
 });
 
 test('validate functions in questions', (t) => {
-  const configuration = config();
+  const configuration = getConfig();
   const choicesList = choices(configuration);
   const questionsList = questions(choicesList);
 
