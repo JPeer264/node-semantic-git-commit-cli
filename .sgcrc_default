@@ -3,12 +3,12 @@
     {
       "emoji": ":wrench:",
       "type": "Chore:",
-      "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm) and moving files"
+      "description": "Changes that affect the build system or external dependencies and moving files"
     },
     {
       "emoji": ":construction_worker:",
       "type": "CI:",
-      "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+      "description": "Changes to our CI configuration files and scripts"
     },
     {
       "emoji": ":memo:",
@@ -18,27 +18,27 @@
     {
       "emoji": ":sparkles:",
       "type": "Feat:",
-      "description": "A new feature"
+      "description": "New feature"
     },
     {
       "emoji": ":bug:",
       "type": "Fix:",
-      "description": "A bug fix"
+      "description": "Bug fix"
     },
     {
       "emoji": ":zapr:",
       "type": "Perf:",
-      "description": "A code change that improves performance"
+      "description": "Code change that improves performance"
     },
     {
       "emoji": ":hammer:",
       "type": "Refactor:",
-      "description": "A code change that neither fixes a bug nor adds a feature"
+      "description": "Code change that neither fixes a bug nor adds a feature"
     },
     {
       "emoji": ":art:",
       "type": "Style:",
-      "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+      "description": "Changes that do not affect the meaning of the code"
     },
     {
       "emoji": ":white_check_mark:",

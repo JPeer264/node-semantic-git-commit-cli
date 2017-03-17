@@ -13,11 +13,11 @@ Many projects got different git commit rules. It is hard to remember them all.
 ## Usage
 
 ```sh
-$ npm i -g MODULE_NAME
+$ npm i -g semantic-git-commit-cli
 ```
 or
 ```sh
-$ yarn add global MODULE_NAME
+$ yarn add global semantic-git-commit-cli
 ```
 
 After installation it is available in your shell as:
