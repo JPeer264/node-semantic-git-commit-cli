@@ -1,0 +1,5 @@
+lib
+.nyc_output
+coverage
+media
+test
