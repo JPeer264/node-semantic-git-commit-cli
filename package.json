@@ -8,11 +8,10 @@
     "sgc": "./dest/cli.js"
   },
   "scripts": {
-    "pretest": "npm run lint",
+    "pretest": "npm run lint & npm run babel",
     "test": "nyc ava",
     "lint": "eslint lib test",
     "prepublish": "npm test",
-    "postinstall": "npm run babel",
     "babel": "babel lib -d dest",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "prepush": "npm test"
