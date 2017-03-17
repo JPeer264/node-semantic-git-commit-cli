@@ -33,6 +33,8 @@ $ sgc
 
 > Just create a `.sgcrc` in your project root or you can add everything in your `package.json` with the value `sgc`
 
+You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
+
 ### Types
 
 > Types will define your git commits.
@@ -57,7 +59,7 @@ The `.sgcrc`:
 }
 ```
 
-The `package.json`:
+or the `package.json`:
 
 ```json
 {
