@@ -45,5 +45,11 @@
       "type": "Test:",
       "description": "Adding missing tests or correcting existing tests"
     }
-  ]
+  ],
+  "rules": {
+    "max-char-commit-message": true,
+    "max-char": 72,
+    "min-char": 10,
+    "end-with-dot": false
+  }
 }
