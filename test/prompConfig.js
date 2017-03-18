@@ -44,5 +44,5 @@ test('validate functions in questions', async (t) => {
   const questionsList = await questions(choicesList, configuration);
 
   t.deepEqual(questionsList[1].validate('input text'), true);
-  t.deepEqual(questionsList[1].validate('This message has over 72 characters so test will fails OMG really, it is so looooooooooooooong'), 'The commit message is not allowed to be longer as 72. Consider writing a body.');
+  t.deepEqual(questionsList[1].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
 });
