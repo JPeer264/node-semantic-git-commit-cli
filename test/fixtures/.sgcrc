@@ -6,12 +6,9 @@
       "description": "Files added"
     }
   ],
-  "rules": [
-    {
-    "max-char-commit-message": true,
+  "rules": {
     "max-char": 72,
     "min-char": 10,
     "end-with-dot": false
-    }
-  ]
+  }
 }
