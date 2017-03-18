@@ -17,7 +17,10 @@
     "prepush": "npm test"
   },
   "ava": {
-    "require": "babel-register",
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
     "babel": "inherit"
   },
   "nyc": {
@@ -38,6 +41,7 @@
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-cli": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.2.1",
     "coveralls": "^2.12.0",
     "eslint": "^3.17.1",
