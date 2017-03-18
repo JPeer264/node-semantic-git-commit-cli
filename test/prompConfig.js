@@ -49,3 +49,13 @@ test('validate functions in questions', (t) => {
   t.deepEqual(questionsList[1].validate('input text'), true);
   t.deepEqual(questionsList[1].validate(), 'A commit message is mandatory!');
 });
+
+test('when and default functions in questions', (t) => {
+  const configuration = getConfig();
+  const choicesList = choices(configuration);
+  const questionsList = questions(choicesList);
+
+  t.deepEqual(questionsList[3].when({ moreInfo: true }), true);
+  t.deepEqual(questionsList[3].when({ moreInfo: false }), false);
+  t.deepEqual(questionsList[3].default({ type: ':wrench: Chore:', description: 'This is a commit message!', moreInfo: true }), ':wrench: Chore: This is a commit message!\n\n\n');
+});
