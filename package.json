@@ -34,6 +34,15 @@
   "bugs": {
     "url": "https://github.com/JPeer264/node-semantic-git-commit-cli/issues"
   },
+  "keywords": [
+    "semantic",
+    "git",
+    "commits",
+    "cli",
+    "fast",
+    "enhance",
+    "workflow"
+  ],
   "homepage": "https://github.com/JPeer264/node-semantic-git-commit-cli#readme",
   "devDependencies": {
     "ava": "^0.18.2",
