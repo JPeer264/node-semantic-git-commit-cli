@@ -35,7 +35,11 @@ $ sgc
 
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
-### Types
+**Options:**
+- [types](#types)
+- [rules](#rules)
+
+### types
 
 > Types will define your git commits.
 
@@ -74,5 +78,64 @@ or the `package.json`:
             }
         ]
     }
+}
+```
+
+### rules
+
+Available rules:
+
+- [max-char](#max-char)
+- [min-char](#min-char)
+- [end-with-dot](#end-with-dot)
+
+#### max-char
+
+**Type:** `number`
+
+**Default:** `undefined`
+
+If a number is set, it will not allow to commit messages **more than** the given number
+
+Example:
+```json
+{
+  "rules": {
+    "max-char": 10
+  }
+}
+```
+
+#### min-char
+
+**Type:** `number`
+
+**Default:** `undefined`
+
+If a number is set, it will not allow to commit messages **less than** the given number
+
+Example:
+```json
+{
+  "rules": {
+    "min-char": 10
+  }
+}
+```
+
+#### end-with-dot
+
+**Type:** `boolean`
+
+**Default:** `true`
+
+If it is set to false, it will not allow to commit messages with a dot at the
+
+Example:
+```json
+{
+  "rules": {
+    "end-with-dot": false
+  }
 }
 ```
