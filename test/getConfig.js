@@ -1,8 +1,9 @@
-import fs from 'fs-extra';
 import os from 'os';
 import test from 'ava';
 import path from 'path';
+import fs from 'fs-extra';
 import json from 'json-extra';
+
 import getConfig from '../lib/getConfig';
 
 const cwd = process.cwd();

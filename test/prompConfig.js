@@ -1,9 +1,10 @@
-import fs from 'fs-extra';
+import os from 'os';
 import test from 'ava';
 import path from 'path';
 import chalk from 'chalk';
+import fs from 'fs-extra';
 import json from 'json-extra';
-import os from 'os';
+
 import getConfig from '../lib/getConfig';
 import { choices, questions } from '../lib/promptConfig';
 
