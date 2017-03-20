@@ -10,7 +10,7 @@
 
 Many projects got different git commit rules. It is hard to remember them all.
 
-## Usage
+## Installation
 
 ```sh
 $ npm i -g semantic-git-commit-cli
@@ -19,6 +19,8 @@ or
 ```sh
 $ yarn add global semantic-git-commit-cli
 ```
+
+## Usage
 
 After installation it is available in your shell as:
 ```sh
