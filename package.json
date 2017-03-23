@@ -8,7 +8,7 @@
     "sgc": "dest/cli.js"
   },
   "scripts": {
-    "pretest": "npm run lint",
+    "pretest": "npm run lint & npm run babel",
     "test": "nyc ava",
     "lint": "eslint lib test",
     "babel": "babel lib -d dest",
@@ -25,7 +25,8 @@
   },
   "nyc": {
     "exclude": [
-      "test"
+      "test",
+      "dest"
     ]
   },
   "repository": {
@@ -64,6 +65,7 @@
     "chalk": "^1.1.3",
     "execa": "^0.6.1",
     "inquirer": "^3.0.6",
+    "is-git-repository": "^1.0.1",
     "json-extra": "^0.5.0",
     "object.entries": "^1.0.4",
     "update-notifier": "^2.1.0",

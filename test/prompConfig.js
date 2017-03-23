@@ -1,11 +1,35 @@
+import os from 'os';
 import test from 'ava';
 import path from 'path';
 import chalk from 'chalk';
+import fs from 'fs-extra';
 import json from 'json-extra';
+
 import getConfig from '../lib/getConfig';
 import { choices, questions } from '../lib/promptConfig';
 
 const cwd = process.cwd();
+const homedir = os.homedir();
+const date = new Date();
+const datetime = date.toISOString().slice(0, 10);
+const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4);
+
+let globalExist = false;
+
+
+// rename global .sgcrc
+test.before(() => {
+  if (fs.existsSync(path.join(homedir, '.sgcrc'))) {
+    globalExist = true;
+    fs.renameSync(path.join(homedir, '.sgcrc'), path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`));
+  }
+});
+
+test.after(() => {
+  if (globalExist) {
+    fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
+  }
+});
 
 test('get configuration file equals .sgcrc_default', (t) => {
   t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
