@@ -2181,9 +2181,9 @@ is-generator-fn@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-generator-fn/-/is-generator-fn-1.0.0.tgz#969d49e1bb3329f6bb7f09089be26578b2ddd46a"
 
-is-git-repository@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/is-git-repository/-/is-git-repository-1.0.0.tgz#cdcfa0d4f0bc187e168d51dd1da3e0f21036b2c8"
+is-git-repository@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-git-repository/-/is-git-repository-1.0.1.tgz#db80512b6ce8db3fa90c84292a7b525e427f5746"
   dependencies:
     execa "^0.6.1"
 
