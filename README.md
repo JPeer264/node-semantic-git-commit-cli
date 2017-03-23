@@ -4,7 +4,7 @@
 
 > A CLI to keep semantic git commits. With emoji support 😄 👍
 
-<img src="media/screenshot.gif">
+<img src="https://raw.githubusercontent.com/JPeer264/node-semantic-git-commit-cli/master/media/screenshot.gif">
 
 ## Why?
 
