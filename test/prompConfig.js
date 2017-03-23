@@ -10,7 +10,9 @@ import { choices, questions } from '../lib/promptConfig';
 
 const cwd = process.cwd();
 const homedir = os.homedir();
-const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
+const date = new Date();
+const datetime = date.toISOString().slice(0, 10);
+const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4);
 
 let globalExist = false;
 
@@ -19,13 +21,13 @@ let globalExist = false;
 test.before(() => {
   if (fs.existsSync(path.join(homedir, '.sgcrc'))) {
     globalExist = true;
-    fs.renameSync(path.join(homedir, '.sgcrc'), path.join(homedir, `.sgcrc.${randomString}.back`));
+    fs.renameSync(path.join(homedir, '.sgcrc'), path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`));
   }
 });
 
 test.after(() => {
   if (globalExist) {
-    fs.renameSync(path.join(homedir, `.sgcrc.${randomString}.back`), path.join(homedir, '.sgcrc'));
+    fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
   }
 });
 
