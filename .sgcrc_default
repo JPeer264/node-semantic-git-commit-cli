@@ -1,4 +1,5 @@
 {
+  "emojies": true,
   "types": [
     {
       "emoji": ":wrench:",
