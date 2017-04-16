@@ -1,21 +1,21 @@
 import os from 'os';
 import test from 'ava';
 import path from 'path';
-import chalk from 'chalk';
 import fs from 'fs-extra';
 import json from 'json-extra';
 
 import getConfig from '../lib/getConfig';
 import { choices, questions } from '../lib/promptConfig';
+import { withEmoji, withoutEmoji } from './fixtures/questions';
 
 const cwd = process.cwd();
-const homedir = os.homedir();
 const date = new Date();
+const homedir = os.homedir();
+const fixtures = path.join(cwd, 'test', 'fixtures');
 const datetime = date.toISOString().slice(0, 10);
 const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4);
 
 let globalExist = false;
-
 
 // rename global .sgcrc
 test.before(() => {
@@ -35,23 +35,21 @@ test('get configuration file equals .sgcrc_default', (t) => {
   t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
-test('choices are the same as choices generated from .sgcrc_default', (t) => {
-  const sgc = getConfig();
+test('choices are rendered without emojis', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
   const choicesList = choices(sgc);
-  const choicesArray = [];
 
-  sgc.types.forEach((type) => {
-    const emoji = `${type.emoji} ` || '';
-    const configType = type.type;
-    const description = type.description || '';
+  t.deepEqual(choicesList, withoutEmoji);
+});
 
-    choicesArray.push({
-      value: emoji + configType,
-      name: `${chalk.bold(configType)} ${description}`,
-    });
-  });
+test('choices are rendered with emojis', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
-  t.deepEqual(choicesList, choicesArray);
+  sgc.emojies = true;
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList, withEmoji);
 });
 
 test('check the values of the question object', (t) => {

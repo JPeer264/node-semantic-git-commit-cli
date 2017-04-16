@@ -41,8 +41,24 @@ $ sgc
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
 **Options:**
+- [emojies](#emojies)
 - [types](#types)
 - [rules](#rules)
+
+### emojies
+
+**Type:** `boolean`
+
+**Default:** `false`
+
+A boolean to enable emojies at the beginning of a commit message
+
+Example:
+```json
+{
+  "emojies": false
+}
+```
 
 ### types
 
