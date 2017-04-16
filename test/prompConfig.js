@@ -35,9 +35,9 @@ test('get configuration file equals .sgcrc_default', (t) => {
   t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
-test('choices are the same as choices generated from .sgcrc_default', async (t) => {
-  const sgc = await getConfig();
-  const choicesList = await choices(sgc);
+test('choices are the same as choices generated from .sgcrc_default', (t) => {
+  const sgc = getConfig();
+  const choicesList = choices(sgc);
   const choicesArray = [];
 
   sgc.types.forEach((type) => {
@@ -51,21 +51,21 @@ test('choices are the same as choices generated from .sgcrc_default', async (t) 
     });
   });
 
-  t.deepEqual(choicesList, await choicesArray);
+  t.deepEqual(choicesList, choicesArray);
 });
 
-test('check the values of the question object', async (t) => {
-  const configuration = await getConfig();
-  const choicesList = await choices(configuration);
-  const questionsList = await questions(choicesList, configuration);
+test('check the values of the question object', (t) => {
+  const configuration = getConfig();
+  const choicesList = choices(configuration);
+  const questionsList = questions(choicesList, configuration);
 
   t.deepEqual(typeof questionsList, 'object');
 });
 
-test('validate functions in questions', async (t) => {
-  const configuration = await getConfig();
-  const choicesList = await choices(configuration);
-  const questionsList = await questions(choicesList, configuration);
+test('validate functions in questions', (t) => {
+  const configuration = getConfig();
+  const choicesList = choices(configuration);
+  const questionsList = questions(choicesList, configuration);
 
   t.deepEqual(questionsList[1].validate('input text'), true);
   t.deepEqual(questionsList[1].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
