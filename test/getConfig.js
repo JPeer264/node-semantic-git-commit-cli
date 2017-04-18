@@ -38,7 +38,7 @@ test('read config from a .sgcrc_default', (t) => {
   t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
-test('read config from package.json', (t) => {
+test.serial('read config from package.json', (t) => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
   const packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
 
