@@ -9,7 +9,7 @@
   },
   "scripts": {
     "pretest": "npm run lint & npm run babel",
-    "test": "nyc ava",
+    "test": "nyc ava -s",
     "lint": "eslint lib test",
     "babel": "babel lib -d dest",
     "prepublish": "npm run babel",
