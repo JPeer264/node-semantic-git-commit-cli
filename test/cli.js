@@ -13,7 +13,8 @@ test('should print the right version', async (t) => {
   t.is(stdout, `v${pkg.version}`);
 });
 
-test('should fail on non git repository', async (t) => {
+// make serial due to dynamic process.chdir switching
+test.serial('should fail on non git repository', async (t) => {
   // assume that the homedir is not a git repo
   process.chdir(homedir());
 
@@ -24,3 +25,9 @@ test('should fail on non git repository', async (t) => {
   t.is(stderr, 'fatal: Not a git repository (or any of the parent directories): .git');
 });
 
+test('should fail on git repos where nothing is added', async (t) => {
+  // assume that the homedir is not a git repo
+  const { stderr } = await execa(cli);
+
+  t.is(stderr, 'Please git add some files first before you commit.');
+});
