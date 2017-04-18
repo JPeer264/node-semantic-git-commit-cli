@@ -1,21 +1,21 @@
 import os from 'os';
 import test from 'ava';
 import path from 'path';
-import chalk from 'chalk';
 import fs from 'fs-extra';
 import json from 'json-extra';
 
 import getConfig from '../lib/getConfig';
 import { choices, questions } from '../lib/promptConfig';
+import { withEmoji, withoutEmoji } from './fixtures/questions';
 
 const cwd = process.cwd();
-const homedir = os.homedir();
 const date = new Date();
+const homedir = os.homedir();
+const fixtures = path.join(cwd, 'test', 'fixtures');
 const datetime = date.toISOString().slice(0, 10);
 const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4);
 
 let globalExist = false;
-
 
 // rename global .sgcrc
 test.before(() => {
@@ -35,37 +35,35 @@ test('get configuration file equals .sgcrc_default', (t) => {
   t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
-test('choices are the same as choices generated from .sgcrc_default', async (t) => {
-  const sgc = await getConfig();
-  const choicesList = await choices(sgc);
-  const choicesArray = [];
+test('choices are rendered without emojis', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
-  sgc.types.forEach((type) => {
-    const emoji = `${type.emoji} ` || '';
-    const configType = type.type;
-    const description = type.description || '';
+  sgc.emojies = false;
 
-    choicesArray.push({
-      value: emoji + configType,
-      name: `${chalk.bold(configType)} ${description}`,
-    });
-  });
+  const choicesList = choices(sgc);
 
-  t.deepEqual(choicesList, await choicesArray);
+  t.deepEqual(choicesList, withoutEmoji);
 });
 
-test('check the values of the question object', async (t) => {
-  const configuration = await getConfig();
-  const choicesList = await choices(configuration);
-  const questionsList = await questions(choicesList, configuration);
+test('choices are rendered with emojis (default)', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList, withEmoji);
+});
+
+test('check the values of the question object', (t) => {
+  const configuration = getConfig();
+  const choicesList = choices(configuration);
+  const questionsList = questions(choicesList, configuration);
 
   t.deepEqual(typeof questionsList, 'object');
 });
 
-test('validate functions in questions', async (t) => {
-  const configuration = await getConfig();
-  const choicesList = await choices(configuration);
-  const questionsList = await questions(choicesList, configuration);
+test('validate functions in questions', (t) => {
+  const configuration = getConfig();
+  const choicesList = choices(configuration);
+  const questionsList = questions(choicesList, configuration);
 
   t.deepEqual(questionsList[1].validate('input text'), true);
   t.deepEqual(questionsList[1].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
