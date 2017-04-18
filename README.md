@@ -56,7 +56,7 @@ A boolean to enable emojies at the beginning of a commit message
 Example:
 ```json
 {
-  "emojies": false
+  "emojies": true
 }
 ```
 
