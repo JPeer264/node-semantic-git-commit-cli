@@ -49,7 +49,7 @@ You can even create a global config. Just go to your users home and create a `.s
 
 **Type:** `boolean`
 
-**Default:** `false`
+**Default:** `true`
 
 A boolean to enable emojies at the beginning of a commit message
 
