@@ -92,12 +92,20 @@ test('check if scope is off by default', (t) => {
   t.is(questionsList[1].when(), false);
 });
 
-test('check if scope validates correctly', (t) => {
+test('check if scope filters correctly', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
   t.is(questionsList[1].filter('answer'), '(answer)');
   t.is(questionsList[1].filter(''), '');
+});
+
+test('check if scope validates correctly', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[1].validate('not correct'), 'No whitespaces allowed');
+  t.is(questionsList[1].validate('correct'), true);
 });
 
 test('validate functions in questions', (t) => {
