@@ -70,7 +70,7 @@ Example:
 
 **Type:** `boolean`
 
-**Default:** `true`
+**Default:** `false`
 
 A boolean to enable emoji at the beginning of a commit message
 
