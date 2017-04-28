@@ -53,7 +53,7 @@ You can even create a global config. Just go to your users home and create a `.s
 
 **Options:**
 - `scope` Asks for the scope in parentheses of the commit. Default: `false`
-- `moreInfo` Asks if more info (body) should be added. Default: `true`
+- `body` Asks if more info (body) should be added. Default: `true`
 
 An object with predefined settings, what should be asked.
 

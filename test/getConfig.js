@@ -46,7 +46,7 @@ test('read config from a .sgcrc_default', (t) => {
 
   globalConfig.questions = {
     scope: false,
-    moreInfo: true,
+    body: true,
   };
 
   t.deepEqual(getConfig(), globalConfig);

@@ -1,7 +1,7 @@
 {
   "questions": {
     "scope": false,
-    "moreInfo": true
+    "body": true
   },
   "emoji": false,
   "types": [
