@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 import json from 'json-extra';
 
 import getConfig from '../lib/getConfig';
-import { choices, questions } from '../lib/promptConfig';
+import questions, { choices } from '../lib/questions';
 import { withEmoji, withoutEmoji } from './fixtures/questions';
 
 const cwd = process.cwd();
