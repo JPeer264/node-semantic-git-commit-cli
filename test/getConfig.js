@@ -17,16 +17,24 @@ let globalExist = false;
 
 // rename global .sgcrc
 test.before(() => {
+  // rename global sgcrc
   if (fs.existsSync(path.join(homedir, '.sgcrc'))) {
     globalExist = true;
     fs.renameSync(path.join(homedir, '.sgcrc'), path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`));
   }
+
+  // rename local sgcrc
+  fs.renameSync(path.join(cwd, '.sgcrc'), path.join(cwd, '.sgcrc_default'));
 });
 
 test.after.always(() => {
+  // rename global sgrc
   if (globalExist) {
     fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
   }
+
+  // rename local sgcrc
+  fs.renameSync(path.join(cwd, '.sgcrc_default'), path.join(cwd, '.sgcrc'));
 });
 
 test('read config from a specific path', (t) => {
