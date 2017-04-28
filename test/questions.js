@@ -32,9 +32,6 @@ test.after.always(() => {
 
 test('choices are rendered without emojis', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
-
-  sgc.emojies = false;
-
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withoutEmoji);
@@ -42,6 +39,9 @@ test('choices are rendered without emojis', (t) => {
 
 test('choices are rendered with emojis (default)', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.emojies = true;
+
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withEmoji);

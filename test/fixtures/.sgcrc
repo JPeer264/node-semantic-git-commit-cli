@@ -3,6 +3,7 @@
     "scope": false,
     "moreInfo": true
   },
+  "emojies": false,
   "types": [
     {
       "emoji": ":emo:",

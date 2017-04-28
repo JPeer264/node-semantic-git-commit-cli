@@ -1,4 +1,9 @@
 {
+  "questions": {
+    "scope": false,
+    "moreInfo": true
+  },
+  "emojies": false,
   "types": [
     {
       "emoji": ":wrench:",

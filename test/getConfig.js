@@ -54,11 +54,13 @@ test('read config from package.json', (t) => {
   fs.renameSync(path.join(cwd, 'package.json'), path.join(cwd, `package.json.${randomString}-${datetime}.back`));
   fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(packageJson));
 
-  t.deepEqual(getConfig(), sgcrc);
+  const config = getConfig();
 
   // revert local package
   fs.removeSync(path.join(cwd, 'package.json'));
   fs.renameSync(path.join(cwd, `package.json.${randomString}-${datetime}.back`), path.join(cwd, 'package.json'));
+
+  t.deepEqual(config, sgcrc);
 });
 
 test('read global config', (t) => {
