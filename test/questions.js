@@ -40,7 +40,7 @@ test.after.always(() => {
   fs.renameSync(path.join(cwd, '.sgcrc_default'), path.join(cwd, '.sgcrc'));
 });
 
-test('choices are rendered without emojis', (t) => {
+test('choices are rendered without emoji', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
   const choicesList = choices(sgc);
 
@@ -68,7 +68,7 @@ test('choices with inherit mode | some', (t) => {
   t.deepEqual(sgc, ownConfig);
 });
 
-test('choices are rendered with emojis (default)', (t) => {
+test('choices are rendered with emoji (default)', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
   sgc.emoji = true;
@@ -85,14 +85,14 @@ test('check the values of the question object', (t) => {
   t.is(typeof questionsList, 'object');
 });
 
-test('check if scope is off by default', (t) => {
+test('SCOPE | check if scope is off by default', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
   t.is(questionsList[1].when(), false);
 });
 
-test('check if scope filters correctly', (t) => {
+test('SCOPE | check if scope filters correctly', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
@@ -100,7 +100,7 @@ test('check if scope filters correctly', (t) => {
   t.is(questionsList[1].filter(''), '');
 });
 
-test('check if scope validates correctly', (t) => {
+test('SCOPE | check if scope validates correctly', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
@@ -108,7 +108,7 @@ test('check if scope validates correctly', (t) => {
   t.is(questionsList[1].validate('correct'), true);
 });
 
-test('validate functions in questions', (t) => {
+test('COMMIT | validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
@@ -116,7 +116,7 @@ test('validate functions in questions', (t) => {
   t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
 });
 
-test('when and default functions in questions', (t) => {
+test('COMMIT | when and default functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
