@@ -41,9 +41,29 @@ $ sgc
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
 **Options:**
+- [questions](#questions)
 - [emojies](#emojies)
 - [types](#types)
 - [rules](#rules)
+
+### questions
+
+**Type:** `object`
+
+**Options:**
+- `scope` Asks for the scope in parentheses of the commit. Default: `false`
+- `moreInfo` Asks if more info (body) should be added. Default: `true`
+
+An object with predefined settings, what should be asked.
+
+Example:
+```js
+{
+  "questions": {
+    "scope": true
+  }
+}
+```
 
 ### emojies
 

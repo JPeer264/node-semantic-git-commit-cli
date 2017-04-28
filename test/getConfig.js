@@ -15,7 +15,6 @@ const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0
 
 let globalExist = false;
 
-
 // rename global .sgcrc
 test.before(() => {
   if (fs.existsSync(path.join(homedir, '.sgcrc'))) {
@@ -24,7 +23,7 @@ test.before(() => {
   }
 });
 
-test.after(() => {
+test.after.always(() => {
   if (globalExist) {
     fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
   }
@@ -35,10 +34,17 @@ test('read config from a specific path', (t) => {
 });
 
 test('read config from a .sgcrc_default', (t) => {
-  t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
+  const globalConfig = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
+
+  globalConfig.questions = {
+    scope: false,
+    moreInfo: true,
+  };
+
+  t.deepEqual(getConfig(), globalConfig);
 });
 
-test.serial('read config from package.json', (t) => {
+test('read config from package.json', (t) => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
   const packageJson = json.readToObjSync(path.join(cwd, 'package.json'));
 

@@ -1,4 +1,8 @@
 {
+  "questions": {
+    "scope": false,
+    "moreInfo": true
+  },
   "types": [
     {
       "emoji": ":emo:",

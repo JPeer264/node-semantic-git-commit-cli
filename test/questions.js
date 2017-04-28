@@ -2,7 +2,6 @@ import os from 'os';
 import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
-import json from 'json-extra';
 
 import getConfig from '../lib/getConfig';
 import questions, { choices } from '../lib/questions';
@@ -25,14 +24,10 @@ test.before(() => {
   }
 });
 
-test.after(() => {
+test.after.always(() => {
   if (globalExist) {
     fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
   }
-});
-
-test('get configuration file equals .sgcrc_default', (t) => {
-  t.deepEqual(getConfig(), json.readToObjSync(path.join(cwd, '.sgcrc_default')));
 });
 
 test('choices are rendered without emojis', (t) => {
@@ -56,22 +51,37 @@ test('check the values of the question object', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.deepEqual(typeof questionsList, 'object');
+  t.is(typeof questionsList, 'object');
+});
+
+test('check if scope is off by default', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[1].when(), false);
+});
+
+test('check if scope validates correctly', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[1].filter('answer'), '(answer)');
+  t.is(questionsList[1].filter(''), '');
 });
 
 test('validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.deepEqual(questionsList[1].validate('input text'), true);
-  t.deepEqual(questionsList[1].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
+  t.is(questionsList[2].validate('input text'), true);
+  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
 });
 
 test('when and default functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.deepEqual(questionsList[3].when({ moreInfo: true }), true);
-  t.deepEqual(questionsList[3].when({ moreInfo: false }), false);
-  t.deepEqual(questionsList[3].default({ type: ':wrench: Chore:', description: 'This is a commit message!', moreInfo: true }), ':wrench: Chore: This is a commit message!\n\n\n');
+  t.is(questionsList[4].when({ moreInfo: true }), true);
+  t.is(questionsList[4].when({ moreInfo: false }), false);
+  t.deepEqual(questionsList[4].default({ type: ':wrench: Chore:', description: 'This is a commit message!', moreInfo: true }), ':wrench: Chore: This is a commit message!\n\n\n');
 });
