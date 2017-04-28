@@ -45,6 +45,7 @@ You can even create a global config. Just go to your users home and create a `.s
 - [emoji](#emoji)
 - [types](#types)
 - [rules](#rules)
+- [inherit](#inherit)
 
 ### questions
 
@@ -178,5 +179,30 @@ Example:
   "rules": {
     "end-with-dot": false
   }
+}
+```
+
+### inherit
+
+**Type:** `boolean | array`
+
+**Default:** `false`
+
+This will inherit every object entry which is given in the array. If this is set to true everything is inherited. The own configuration won't get overwritten.
+
+Example:
+```js
+// following set "emoji" to true, and will inherit everything except "emoji" from the defaults.
+{
+  "emoji": true,
+  "inherit": true
+}
+
+// following has "emoji" to true and just types are "types" from the defaults.
+{
+  "emoji": true,
+  "inherit": [
+    "types"
+  ]
 }
 ```

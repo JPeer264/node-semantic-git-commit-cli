@@ -1,0 +1,7 @@
+{
+  "emoji": true,
+  "inherit": [
+    "emoji",
+    "rules"
+  ]
+}

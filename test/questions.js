@@ -2,6 +2,8 @@ import os from 'os';
 import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
+import json from 'json-extra';
+import merge from 'lodash.merge';
 
 import getConfig from '../lib/getConfig';
 import questions, { choices } from '../lib/questions';
@@ -18,16 +20,24 @@ let globalExist = false;
 
 // rename global .sgcrc
 test.before(() => {
+  // rename global config
   if (fs.existsSync(path.join(homedir, '.sgcrc'))) {
     globalExist = true;
     fs.renameSync(path.join(homedir, '.sgcrc'), path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`));
   }
+
+  // rename local sgcrc
+  fs.renameSync(path.join(cwd, '.sgcrc'), path.join(cwd, '.sgcrc_default'));
 });
 
 test.after.always(() => {
+  // rename global config
   if (globalExist) {
     fs.renameSync(path.join(homedir, `.sgcrc.${randomString}-${datetime}.back`), path.join(homedir, '.sgcrc'));
   }
+
+  // rename local sgcrc
+  fs.renameSync(path.join(cwd, '.sgcrc_default'), path.join(cwd, '.sgcrc'));
 });
 
 test('choices are rendered without emojis', (t) => {
@@ -35,6 +45,27 @@ test('choices are rendered without emojis', (t) => {
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withoutEmoji);
+});
+
+test('choices with inherit mode | all', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc_inherit_all'));
+  const sgcrc = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
+
+  t.deepEqual(sgc, merge({}, sgcrc, sgc));
+});
+
+test('choices with inherit mode | some', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc_inherit'));
+  const sgcrc = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
+
+  const ownConfig = {
+    emoji: true,
+  };
+
+  ownConfig.rules = sgcrc.rules;
+  ownConfig.questions = sgcrc.questions;
+
+  t.deepEqual(sgc, ownConfig);
 });
 
 test('choices are rendered with emojis (default)', (t) => {
