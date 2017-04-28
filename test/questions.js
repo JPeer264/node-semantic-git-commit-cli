@@ -124,3 +124,10 @@ test('COMMIT | when and default functions in questions', (t) => {
   t.is(questionsList[4].when({ moreInfo: false }), false);
   t.deepEqual(questionsList[4].default({ type: ':wrench: Chore:', description: 'This is a commit message!', moreInfo: true }), ':wrench: Chore: This is a commit message!\n\n\n');
 });
+
+test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[3].when(), config.questions.moreInfo);
+});
