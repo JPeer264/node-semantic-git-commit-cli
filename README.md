@@ -42,7 +42,7 @@ You can even create a global config. Just go to your users home and create a `.s
 
 **Options:**
 - [questions](#questions)
-- [emojies](#emojies)
+- [emoji](#emoji)
 - [types](#types)
 - [rules](#rules)
 
@@ -65,18 +65,18 @@ Example:
 }
 ```
 
-### emojies
+### emoji
 
 **Type:** `boolean`
 
 **Default:** `true`
 
-A boolean to enable emojies at the beginning of a commit message
+A boolean to enable emoji at the beginning of a commit message
 
 Example:
 ```json
 {
-  "emojies": true
+  "emoji": true
 }
 ```
 

@@ -40,7 +40,7 @@ test('choices are rendered without emojis', (t) => {
 test('choices are rendered with emojis (default)', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
-  sgc.emojies = true;
+  sgc.emoji = true;
 
   const choicesList = choices(sgc);
 
