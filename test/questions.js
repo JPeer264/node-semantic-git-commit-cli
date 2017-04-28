@@ -53,26 +53,23 @@ test('choices are rendered with emojis (default)', (t) => {
 });
 
 test('check the values of the question object', (t) => {
-  const configuration = getConfig();
-  const choicesList = choices(configuration);
-  const questionsList = questions(choicesList, configuration);
+  const config = getConfig();
+  const questionsList = questions(config);
 
   t.deepEqual(typeof questionsList, 'object');
 });
 
 test('validate functions in questions', (t) => {
-  const configuration = getConfig();
-  const choicesList = choices(configuration);
-  const questionsList = questions(choicesList, configuration);
+  const config = getConfig();
+  const questionsList = questions(config);
 
   t.deepEqual(questionsList[1].validate('input text'), true);
   t.deepEqual(questionsList[1].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72. Consider writing a body.\n');
 });
 
 test('when and default functions in questions', (t) => {
-  const configuration = getConfig();
-  const choicesList = choices(configuration);
-  const questionsList = questions(choicesList);
+  const config = getConfig();
+  const questionsList = questions(config);
 
   t.deepEqual(questionsList[3].when({ moreInfo: true }), true);
   t.deepEqual(questionsList[3].when({ moreInfo: false }), false);
