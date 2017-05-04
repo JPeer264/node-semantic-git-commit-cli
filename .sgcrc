@@ -1,8 +1,6 @@
 {
-  "questions": {
-    "scope": false,
-    "body": true
-  },
+  "scope": false,
+  "body": true,
   "emoji": false,
   "types": [
     {

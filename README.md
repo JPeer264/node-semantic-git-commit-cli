@@ -41,28 +41,39 @@ $ sgc
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
 **Options:**
-- [questions](#questions)
+- [body](#body)
+- [scope](#scope)
 - [emoji](#emoji)
 - [types](#types)
 - [rules](#rules)
-- [inherit](#inherit)
 
-### questions
+### body
 
-**Type:** `object`
+**Type:** `boolean`
 
-**Options:**
-- `scope` Asks for the scope in parentheses of the commit. Default: `false`
-- `body` Asks if more info (body) should be added. Default: `true`
+**Default**: `true`
 
-An object with predefined settings, what should be asked.
+Asks if more info (body) should be added. This will open your default editor.
 
 Example:
-```js
+```json
 {
-  "questions": {
-    "scope": true
-  }
+  "body": false
+}
+```
+
+### scope
+
+**Type:** `boolean`
+
+**Default:** `false`
+
+Asks for the scope in parentheses of the commit.
+
+Example:
+```json
+{
+  "scope": true
 }
 ```
 
@@ -83,7 +94,8 @@ Example:
 
 ### types
 
-> Types will define your git commits.
+> Types will define your git commits. If `types` is not set in your own `.sgcrc`, the `types` of the global [.sgcrc](.sgcrc)
+
 
 **Keys**
 
@@ -135,15 +147,15 @@ Available rules:
 
 **Type:** `number`
 
-**Default:** `undefined`
+**Default:** `72`
 
-If a number is set, it will not allow to commit messages **more than** the given number
+If a number is set, it will not allow to commit messages **more than** the given number. If it is set to `false` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "max-char": 10
+    "max-char": false
   }
 }
 ```
@@ -152,15 +164,15 @@ Example:
 
 **Type:** `number`
 
-**Default:** `undefined`
+**Default:** `10`
 
-If a number is set, it will not allow to commit messages **less than** the given number
+If a number is set, it will not allow to commit messages **less than** the given number. If it is set to `false` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "min-char": 10
+    "min-char": false
   }
 }
 ```
@@ -179,30 +191,5 @@ Example:
   "rules": {
     "end-with-dot": false
   }
-}
-```
-
-### inherit
-
-**Type:** `boolean | array`
-
-**Default:** `false`
-
-This will inherit every object entry which is given in the array. If this is set to true everything is inherited. The own configuration won't get overwritten.
-
-Example:
-```js
-// following set "emoji" to true, and will inherit everything except "emoji" from the defaults.
-{
-  "emoji": true,
-  "inherit": true
-}
-
-// following has "emoji" to true and just types are "types" from the defaults.
-{
-  "emoji": true,
-  "inherit": [
-    "types"
-  ]
 }
 ```

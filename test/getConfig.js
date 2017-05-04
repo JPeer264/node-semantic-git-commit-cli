@@ -44,11 +44,6 @@ test('read config from a specific path', (t) => {
 test('read config from a .sgcrc_default', (t) => {
   const globalConfig = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
 
-  globalConfig.questions = {
-    scope: false,
-    body: true,
-  };
-
   t.deepEqual(getConfig(), globalConfig);
 });
 

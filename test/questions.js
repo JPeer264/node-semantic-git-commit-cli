@@ -2,8 +2,6 @@ import os from 'os';
 import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
-import json from 'json-extra';
-import merge from 'lodash.merge';
 
 import getConfig from '../lib/getConfig';
 import questions, { choices } from '../lib/questions';
@@ -45,27 +43,6 @@ test('choices are rendered without emoji', (t) => {
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withoutEmoji);
-});
-
-test('choices with inherit mode | all', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc_inherit_all'));
-  const sgcrc = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
-
-  t.deepEqual(sgc, merge({}, sgcrc, sgc));
-});
-
-test('choices with inherit mode | some', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc_inherit'));
-  const sgcrc = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
-
-  const ownConfig = {
-    emoji: true,
-  };
-
-  ownConfig.rules = sgcrc.rules;
-  ownConfig.questions = sgcrc.questions;
-
-  t.deepEqual(sgc, ownConfig);
 });
 
 test('choices are rendered with emoji (default)', (t) => {
@@ -129,5 +106,5 @@ test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[3].when(), config.questions.body);
+  t.is(questionsList[3].when(), config.body);
 });
