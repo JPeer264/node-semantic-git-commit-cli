@@ -1,4 +1,7 @@
 {
+  "scope": false,
+  "body": true,
+  "emoji": false,
   "types": [
     {
       "emoji": ":emo:",

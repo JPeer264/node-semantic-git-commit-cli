@@ -41,28 +41,61 @@ $ sgc
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
 **Options:**
-- [emojies](#emojies)
+- [body](#body)
+- [scope](#scope)
+- [emoji](#emoji)
 - [types](#types)
 - [rules](#rules)
 
-### emojies
+### body
 
 **Type:** `boolean`
 
-**Default:** `true`
+**Default**: `true`
 
-A boolean to enable emojies at the beginning of a commit message
+Asks if more info (body) should be added. This will open your default editor.
 
 Example:
 ```json
 {
-  "emojies": true
+  "body": false
+}
+```
+
+### scope
+
+**Type:** `boolean`
+
+**Default:** `false`
+
+Asks for the scope in parentheses of the commit.
+
+Example:
+```json
+{
+  "scope": true
+}
+```
+
+### emoji
+
+**Type:** `boolean`
+
+**Default:** `false`
+
+A boolean to enable emoji at the beginning of a commit message
+
+Example:
+```json
+{
+  "emoji": true
 }
 ```
 
 ### types
 
-> Types will define your git commits.
+> Types will define your git commits. If `types` is not set in your own `.sgcrc`, the `types` of the global [.sgcrc](.sgcrc)
+
 
 **Keys**
 
@@ -114,15 +147,15 @@ Available rules:
 
 **Type:** `number`
 
-**Default:** `undefined`
+**Default:** `72`
 
-If a number is set, it will not allow to commit messages **more than** the given number
+If a number is set, it will not allow to commit messages **more than** the given number. If it is set to `-1` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "max-char": 10
+    "max-char": -1
   }
 }
 ```
@@ -131,15 +164,15 @@ Example:
 
 **Type:** `number`
 
-**Default:** `undefined`
+**Default:** `10`
 
-If a number is set, it will not allow to commit messages **less than** the given number
+If a number is set, it will not allow to commit messages **less than** the given number. If it is set to `-1` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "min-char": 10
+    "min-char": -1
   }
 }
 ```

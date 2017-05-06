@@ -14,7 +14,7 @@ test('should print the right version', async (t) => {
 });
 
 // make serial due to dynamic process.chdir switching
-test.serial('should fail on non git repository', async (t) => {
+test('should fail on non git repository', async (t) => {
   // assume that the homedir is not a git repo
   process.chdir(homedir());
 
