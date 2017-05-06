@@ -24,6 +24,17 @@ test('rules minChar', (t) => {
   t.true(minChar);
 });
 
+test('-1 in minChar', (t) => {
+  const rulesObj = {
+    'min-char': -1,
+  };
+  const shortText = rules.minChar('n', { rules: rulesObj }).check();
+  const longText = rules.minChar('this are more than 10 characters', { rules: rulesObj }).check();
+
+  t.true(shortText);
+  t.true(longText);
+});
+
 test('rules mxChar', (t) => {
   const rulesObj = {
     'max-char': 72,
@@ -33,4 +44,15 @@ test('rules mxChar', (t) => {
 
   t.false(moreThanMaxChar);
   t.true(lessThanMaxChar);
+});
+
+test('-1 in maxChar', (t) => {
+  const rulesObj = {
+    'min-char': -1,
+  };
+  const longText = rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be true ;-P', { rules: rulesObj }).check();
+  const shortText = rules.maxChar('this are less than 72 characters', { rules: rulesObj }).check();
+
+  t.true(longText);
+  t.true(shortText);
 });

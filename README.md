@@ -149,13 +149,13 @@ Available rules:
 
 **Default:** `72`
 
-If a number is set, it will not allow to commit messages **more than** the given number. If it is set to `false` the rule is deactivated
+If a number is set, it will not allow to commit messages **more than** the given number. If it is set to `-1` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "max-char": false
+    "max-char": -1
   }
 }
 ```
@@ -166,13 +166,13 @@ Example:
 
 **Default:** `10`
 
-If a number is set, it will not allow to commit messages **less than** the given number. If it is set to `false` the rule is deactivated
+If a number is set, it will not allow to commit messages **less than** the given number. If it is set to `-1` the rule is deactivated
 
 Example:
 ```json
 {
   "rules": {
-    "min-char": false
+    "min-char": -1
   }
 }
 ```
