@@ -48,7 +48,7 @@ test('rules mxChar', (t) => {
 
 test('-1 in maxChar', (t) => {
   const rulesObj = {
-    'min-char': -1,
+    'max-char': -1,
   };
   const longText = rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be true ;-P', { rules: rulesObj }).check();
   const shortText = rules.maxChar('this are less than 72 characters', { rules: rulesObj }).check();
