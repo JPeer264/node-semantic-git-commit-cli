@@ -11,7 +11,9 @@
 
 ## Why?
 
-Many projects got different git commit rules. It is hard to remember them all.
+Many projects got different git commit rules. It is hard to remember them all. Usually you start with `git commit -m "`, and then? You have to think about the projects commit guidelines.
+
+`sgc` will take care of the commit guidelines, so you can focus on the more important stuff: **code**
 
 ## Installation
 
@@ -25,13 +27,13 @@ $ yarn add global semantic-git-commit-cli
 
 ## Usage
 
-After installation it is available in your shell as:
-```sh
-$ semantic-git-commit
-```
-or even shorter:
+Forget the times when you used `git commit -m "..."`, now just type:
 ```sh
 $ sgc
+```
+or if you already have an alias for sgc, use following instead:
+```sh
+$ semantic-git-commit
 ```
 
 ## Config
