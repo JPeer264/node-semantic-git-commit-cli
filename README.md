@@ -113,7 +113,7 @@ Example:
 
 **Keys:**
 
-- `isEnabled` - Wether an explicit initial commit should be used for the very first commit
+- `isEnabled` - Whether an explicit initial commit should be used for the very first commit
 - `emoji` - An emoji which will be appended at the beginning of the commit ([Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/))
 - `message` - The commit message for the very first commit
 
