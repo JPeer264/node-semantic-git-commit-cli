@@ -1,11 +1,15 @@
-import os from 'os';
 import test from 'ava';
-import path from 'path';
 import fs from 'fs-extra';
+import os from 'os';
+import path from 'path';
 
-import getConfig from '../lib/getConfig';
-import questions, { choices } from '../lib/questions';
 import { withEmoji, withoutEmoji } from './fixtures/questions';
+import getConfig from '../lib/getConfig';
+import questions, {
+  choices,
+  initMessage,
+  initQuestion,
+} from '../lib/questions';
 
 const cwd = process.cwd();
 const date = new Date();
@@ -107,4 +111,38 @@ test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
   const questionsList = questions(config);
 
   t.is(questionsList[3].when(), config.body);
+});
+
+test('INIT COMMIT | check message without emoji', (t) => {
+  const config = getConfig();
+  const message = initMessage(config);
+
+  t.is(message, config['initial-commit'].message);
+});
+
+test('INIT COMMIT | check message with emoji', (t) => {
+  const config = getConfig();
+
+  config.emoji = true;
+
+  const message = initMessage(config);
+
+  t.is(message, `${config['initial-commit'].emoji} ${config['initial-commit'].message}`);
+});
+
+test('INIT QUESTION | check message without emoji', (t) => {
+  const config = getConfig();
+  const question = initQuestion(config);
+
+  t.is(question.message, `Confirm as first commit message: "${config['initial-commit'].message}"`);
+});
+
+test('INIT QUESTION | check message with emoji', (t) => {
+  const config = getConfig();
+
+  config.emoji = true;
+
+  const question = initQuestion(config);
+
+  t.is(question.message, `Confirm as first commit message: "${config['initial-commit'].emoji} ${config['initial-commit'].message}"`);
 });

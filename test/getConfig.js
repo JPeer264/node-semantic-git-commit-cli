@@ -1,8 +1,8 @@
-import os from 'os';
 import test from 'ava';
-import path from 'path';
 import fs from 'fs-extra';
 import json from 'json-extra';
+import os from 'os';
+import path from 'path';
 
 import getConfig from '../lib/getConfig';
 

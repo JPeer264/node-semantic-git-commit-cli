@@ -2,6 +2,11 @@
   "scope": false,
   "body": true,
   "emoji": false,
+  "initial-commit": {
+    "isEnabled": true,
+    "emoji": ":tada:",
+    "message": "Initial commit"
+  },
   "types": [
     {
       "emoji": ":emo:",
