@@ -1,5 +1,6 @@
 # modules
 node_modules
+npm-debug.log
 
 # generated
 dest
