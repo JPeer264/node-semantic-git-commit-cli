@@ -46,6 +46,7 @@ You can even create a global config. Just go to your users home and create a `.s
 - [body](#body)
 - [scope](#scope)
 - [emoji](#emoji)
+- [initial-commit](#initial-commit)
 - [types](#types)
 - [rules](#rules)
 
@@ -93,6 +94,28 @@ Example:
   "emoji": true
 }
 ```
+
+### initial-commit
+
+**Type:** `object`
+
+**Default:**
+
+```json
+{
+  "initial-commit": {
+    "isEnabled": true,
+    "emoji": ":tada:",
+    "message": "Initial commit"
+  }
+}
+```
+
+**Keys:**
+
+- `isEnabled` - Wether an explicit initial commit should be used for the very first commit
+- `emoji` - An emoji which will be appended at the beginning of the commit ([Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/))
+- `message` - The commit message for the very first commit
 
 ### types
 
