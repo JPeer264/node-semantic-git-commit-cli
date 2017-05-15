@@ -1,7 +1,7 @@
-import { homedir } from 'os';
 import test from 'ava';
-import path from 'path';
 import execa from 'execa';
+import { homedir } from 'os';
+import path from 'path';
 
 import pkg from '../package.json';
 
