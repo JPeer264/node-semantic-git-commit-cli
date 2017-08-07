@@ -66,7 +66,7 @@ test('check the values of the question object', (t) => {
   t.is(typeof questionsList, 'object');
 });
 
-test.only('TYPES | upperCase (default)', (t) => {
+test('TYPES | upperCase (default)', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
   const choicesList = choices(sgc);
@@ -74,7 +74,7 @@ test.only('TYPES | upperCase (default)', (t) => {
   t.is(choicesList[0].value, 'Add:');
 });
 
-test.only('TYPES | lowerCase', (t) => {
+test('TYPES | lowerCase', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
   sgc.lowercaseTypes = true;
