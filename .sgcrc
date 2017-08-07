@@ -2,6 +2,7 @@
   "scope": false,
   "body": true,
   "emoji": false,
+  "lowercaseTypes": false,
   "initial-commit": {
     "isEnabled": true,
     "emoji": ":tada:",
