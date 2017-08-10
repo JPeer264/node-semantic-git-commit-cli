@@ -66,6 +66,24 @@ test('check the values of the question object', (t) => {
   t.is(typeof questionsList, 'object');
 });
 
+test('TYPES | upperCase (default)', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  const choicesList = choices(sgc);
+
+  t.is(choicesList[0].value, 'Add:');
+});
+
+test('TYPES | lowerCase', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.lowercaseTypes = true;
+
+  const choicesList = choices(sgc);
+
+  t.is(choicesList[0].value, 'add:');
+});
+
 test('SCOPE | check if scope is off by default', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
