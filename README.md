@@ -36,6 +36,35 @@ or if you already have an alias for sgc, use following instead:
 $ semantic-git-commit
 ```
 
+### usage with semantic-release
+
+> Configure sgc for the following semantic-release options: `analyzeCommits` and `generateNotes`
+
+First step, install the following plugins with 
+```sh
+$ npm install --save-dev sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
+```
+or
+```sh
+$ yarn add -D sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
+```
+
+Then, add this in your `package.json` :
+```json
+{
+  "release": {
+    "analyzeCommits": {
+      "path": "sr-commit-analyzer",
+      "preset": "eslint"
+    },
+   "generateNotes": {
+      "path": "sr-release-notes-generator",
+      "preset": "eslint"
+    }
+  }
+}
+```
+
 ## Config
 
 > Just create a `.sgcrc` in your project root or you can add everything in your `package.json` with the value `sgc`
