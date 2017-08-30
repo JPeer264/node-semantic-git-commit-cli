@@ -36,7 +36,9 @@ or if you already have an alias for sgc, use following instead:
 $ semantic-git-commit
 ```
 
-### Configure sgc for the following semantic-release options : analyzeCommits and generateNotes
+### usage with semantic-release
+
+> Configure sgc for the following semantic-release options: `analyzeCommits` and `generateNotes`
 
 First step, install the following plugins with 
 ```sh
@@ -47,7 +49,7 @@ or
 $ yarn add -D sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
 ```
 
-Then, add this in your package.json :
+Then, add this in your `package.json` :
 ```json
 {
   "release": {
