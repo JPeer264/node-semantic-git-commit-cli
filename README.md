@@ -58,6 +58,7 @@ Then, add this in your package.json :
    "generateNotes": {
       "path": "sr-release-notes-generator",
       "preset": "eslint"
+    }
   }
 }
 ```
