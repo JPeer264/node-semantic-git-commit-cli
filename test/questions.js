@@ -111,8 +111,8 @@ test('COMMIT | validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[2].validate('input text'), true);
-  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth'), 'The commit message is not allowed to be longer as 72 character, but is 115 character long. Consider writing a body.\n');
+  t.is(questionsList[2].validate('input text', 'Fix: '), true);
+  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', 'Fix: '), 'The commit message is not allowed to be longer as 72 character, but is 125 character long. Consider writing a body.\n');
 });
 
 test('COMMIT | when and default functions in questions', (t) => {
