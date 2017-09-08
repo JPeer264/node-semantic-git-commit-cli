@@ -75,6 +75,7 @@ You can even create a global config. Just go to your users home and create a `.s
 - [body](#body)
 - [scope](#scope)
 - [emoji](#emoji)
+- [lowercaseTypes](#lowercaseTypes)
 - [initial-commit](#initial-commit)
 - [types](#types)
 - [rules](#rules)
@@ -121,6 +122,21 @@ Example:
 ```json
 {
   "emoji": true
+}
+```
+
+### lowercaseTypes
+
+**Type:** `boolean`
+
+**Default:** `false`
+
+A boolean to lowercase types.
+
+Example:
+```json
+{
+  "lowercaseTypes": true
 }
 ```
 
