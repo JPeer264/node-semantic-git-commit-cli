@@ -22,7 +22,7 @@ $ npm i -g semantic-git-commit-cli
 ```
 or
 ```sh
-$ yarn add global semantic-git-commit-cli
+$ yarn global add semantic-git-commit-cli
 ```
 
 ## Usage
