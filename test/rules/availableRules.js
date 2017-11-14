@@ -4,7 +4,7 @@ import rules from '../../lib/rules/availableRules';
 
 test('rules endWithDot', (t) => {
   const rulesObj = {
-    'end-with-dot': false,
+    endWithDot: false,
   };
   const endWithDot = rules.endWithDot('input with dot.', { rules: rulesObj }).check();
   const endWithoutDot = rules.endWithDot('input with dot', { rules: rulesObj }).check();
@@ -15,7 +15,7 @@ test('rules endWithDot', (t) => {
 
 test('rules minChar', (t) => {
   const rulesObj = {
-    'min-char': 10,
+    minChar: 10,
   };
   const notMinChar = rules.minChar('less', { rules: rulesObj }).check();
   const minChar = rules.minChar('this are more than 10 characters', { rules: rulesObj }).check();
@@ -26,7 +26,7 @@ test('rules minChar', (t) => {
 
 test('-1 in minChar', (t) => {
   const rulesObj = {
-    'min-char': -1,
+    minChar: -1,
   };
   const shortText = rules.minChar('n', { rules: rulesObj }).check();
   const longText = rules.minChar('this are more than 10 characters', { rules: rulesObj }).check();
@@ -37,7 +37,7 @@ test('-1 in minChar', (t) => {
 
 test('rules mxChar', (t) => {
   const rulesObj = {
-    'max-char': 72,
+    maxChar: 72,
   };
   const moreThanMaxChar = rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be false ;-P', { rules: rulesObj }).check();
   const lessThanMaxChar = rules.maxChar('this are less than 72 characters', { rules: rulesObj }).check();
@@ -48,7 +48,7 @@ test('rules mxChar', (t) => {
 
 test('-1 in maxChar', (t) => {
   const rulesObj = {
-    'max-char': -1,
+    maxChar: -1,
   };
   const longText = rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be true ;-P', { rules: rulesObj }).check();
   const shortText = rules.maxChar('this are less than 72 characters', { rules: rulesObj }).check();

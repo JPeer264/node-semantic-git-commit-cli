@@ -3,7 +3,7 @@
   "body": true,
   "emoji": false,
   "lowercaseTypes": false,
-  "initial-commit": {
+  "initialCommit": {
     "isEnabled": true,
     "emoji": ":tada:",
     "message": "Initial commit"
@@ -16,8 +16,8 @@
     }
   ],
   "rules": {
-    "max-char": 72,
-    "min-char": 10,
-    "end-with-dot": false
+    "maxChar": 72,
+    "minChar": 10,
+    "endWithDot": false
   }
 }

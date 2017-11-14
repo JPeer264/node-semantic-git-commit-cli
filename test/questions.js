@@ -136,7 +136,7 @@ test('INIT COMMIT | check message without emoji', (t) => {
   const config = getConfig();
   const message = initMessage(config);
 
-  t.is(message, config['initial-commit'].message);
+  t.is(message, config.initialCommit.message);
 });
 
 test('INIT COMMIT | check message with emoji', (t) => {
@@ -146,14 +146,14 @@ test('INIT COMMIT | check message with emoji', (t) => {
 
   const message = initMessage(config);
 
-  t.is(message, `${config['initial-commit'].emoji} ${config['initial-commit'].message}`);
+  t.is(message, `${config.initialCommit.emoji} ${config.initialCommit.message}`);
 });
 
 test('INIT QUESTION | check message without emoji', (t) => {
   const config = getConfig();
   const question = initQuestion(config);
 
-  t.is(question.message, `Confirm as first commit message: "${config['initial-commit'].message}"`);
+  t.is(question.message, `Confirm as first commit message: "${config.initialCommit.message}"`);
 });
 
 test('INIT QUESTION | check message with emoji', (t) => {
@@ -163,5 +163,5 @@ test('INIT QUESTION | check message with emoji', (t) => {
 
   const question = initQuestion(config);
 
-  t.is(question.message, `Confirm as first commit message: "${config['initial-commit'].emoji} ${config['initial-commit'].message}"`);
+  t.is(question.message, `Confirm as first commit message: "${config.initialCommit.emoji} ${config.initialCommit.message}"`);
 });
