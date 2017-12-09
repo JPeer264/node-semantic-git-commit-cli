@@ -5,9 +5,9 @@ import ruleWaringMessages from '../../lib/rules/ruleWarningMessages';
 test('ruleWarningMessages', (t) => {
   const config = {
     rules: {
-      'max-char': 72,
-      'min-char': 10,
-      'end-with-dot': false,
+      maxChar: 72,
+      minChar: 10,
+      endWithDot: false,
     },
   };
   const messages = ruleWaringMessages('input.', config);
