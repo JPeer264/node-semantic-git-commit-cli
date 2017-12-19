@@ -36,9 +36,9 @@ or if you already have an alias for sgc, use following instead:
 $ semantic-git-commit
 ```
 
-### usage with semantic-release
+### Usage with [semantic-release](https://github.com/semantic-release/semantic-release)
 
-> Configure sgc for the following semantic-release options: `analyzeCommits` and `generateNotes`
+> Configure sgc for the following [semantic-release options](https://github.com/semantic-release/semantic-release#plugins): `analyzeCommits` and `generateNotes`
 
 First step, install the following plugins with 
 ```sh
