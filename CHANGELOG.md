@@ -1,3 +1,11 @@
+3.0.0 - January, 05 2018
+
+* fb01392 Chore: drop Node v4 (#55) (Jan Peer Stöcklmair)
+* c5b5941 Docs: link semantic-release (#52) (Jan Peer Stöcklmair)
+* ba91f6a CI: test node version 8 (#50) (Lukas Aichbauer)
+* 866cffd Style: use consistent writing style (closes #43) (#48) (Lukas Aichbauer)
+* 540af59 Docs: recover changelog (#47) (Jan Peer Stöcklmair)
+
 2.3.1 - October, 01 2017
 
  * f37923b Fix: apply length check on type + scope + message (closes #35) (#42) (Lukas Aichbauer)
