@@ -16,6 +16,9 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "prepush": "npm test"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "ava": {
     "require": [
       "babel-register",
