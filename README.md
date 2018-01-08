@@ -48,20 +48,40 @@ or
 ```sh
 $ yarn add -D sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
 ```
-
-Then, add this in your `package.json` :
-```json
-{
-  "release": {
-    "analyzeCommits": {
-      "path": "sr-commit-analyzer",
-      "preset": "eslint"
+Then, create  a `release.config.js` file in a `config` folder in the root folder of your project :
+```js
+/* eslint-disable no-useless-escape */
+module.exports = {
+  analyzeCommits: {
+    preset: 'eslint',
+    releaseRules: './config/release-rules.js', // optional, only if you want to set up new/modified release rules inside another file
+    parserOpts: { // optional, only you want to have emoji commit support
+      headerPattern: /^(?:\:(\w*)\:)?\s(\w*)\:\s(.*?)(?:\((.*)\))?$/,
+      headerCorrespondence: [
+        'emoji',
+        'tag',
+        'message',
+      ],
     },
-   "generateNotes": {
-      "path": "sr-release-notes-generator",
-      "preset": "eslint"
-    }
-  }
+  },
+  generateNotes: {
+    preset: 'eslint',
+    parserOpts: { // optional, only you want to have emoji commit support
+      headerPattern: /^(?:\:(\w*)\:)?\s(\w*)\:\s(.*?)(?:\((.*)\))?$/,
+      headerCorrespondence: [
+        'emoji',
+        'tag',
+        'message',
+      ],
+    },
+  },
+};
+```
+
+Then, update the  `semantic-release ` script to your `package.json` to this : 
+```json
+"scripts": {
+    "semantic-release": "semantic-release -e ./config/release.config.js",
 }
 ```
 
