@@ -96,7 +96,7 @@ You can even create a global config. Just go to your users home and create a `.s
 - [scope](#scope)
 - [emoji](#emoji)
 - [lowercaseTypes](#lowercaseTypes)
-- [initial-commit](#initial-commit)
+- [initialCommit](#initialCommit)
 - [types](#types)
 - [rules](#rules)
 
@@ -160,7 +160,7 @@ Example:
 }
 ```
 
-### initial-commit
+### initialCommit
 
 **Type:** `object`
 
@@ -168,7 +168,7 @@ Example:
 
 ```json
 {
-  "initial-commit": {
+  "initialCommit": {
     "isEnabled": true,
     "emoji": ":tada:",
     "message": "Initial commit"
