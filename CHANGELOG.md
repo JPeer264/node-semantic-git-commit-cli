@@ -1,3 +1,9 @@
+3.0.1 - January, 24 2018
+
+* d325a89 Fix: wrong value for initialCommit (#58) (Jan Peer Stöcklmair)
+* edbb6d9 Docs: fix initial-commit change (#57) (Jan Peer Stöcklmair)
+* a878812 Update README.md (#56) (jy95)
+
 3.0.0 - January, 05 2018
 
 * fb01392 Chore: drop Node v4 (#55) (Jan Peer Stöcklmair)
