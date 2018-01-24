@@ -7,8 +7,8 @@ import { withEmoji, withoutEmoji } from './fixtures/questions';
 import getConfig from '../lib/getConfig';
 import questions, {
   choices,
-  initMessage,
-  initQuestion,
+  initialMessage,
+  initialQuestion,
 } from '../lib/questions';
 
 const cwd = process.cwd();
@@ -134,7 +134,7 @@ test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
 
 test('INIT COMMIT | check message without emoji', (t) => {
   const config = getConfig();
-  const message = initMessage(config);
+  const message = initialMessage(config);
 
   t.is(message, config.initialCommit.message);
 });
@@ -144,14 +144,14 @@ test('INIT COMMIT | check message with emoji', (t) => {
 
   config.emoji = true;
 
-  const message = initMessage(config);
+  const message = initialMessage(config);
 
   t.is(message, `${config.initialCommit.emoji} ${config.initialCommit.message}`);
 });
 
 test('INIT QUESTION | check message without emoji', (t) => {
   const config = getConfig();
-  const question = initQuestion(config);
+  const question = initialQuestion(config);
 
   t.is(question.message, `Confirm as first commit message: "${config.initialCommit.message}"`);
 });
@@ -161,7 +161,7 @@ test('INIT QUESTION | check message with emoji', (t) => {
 
   config.emoji = true;
 
-  const question = initQuestion(config);
+  const question = initialQuestion(config);
 
   t.is(question.message, `Confirm as first commit message: "${config.initialCommit.emoji} ${config.initialCommit.message}"`);
 });
