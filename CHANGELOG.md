@@ -1,3 +1,7 @@
+3.0.2 - June, 19 2018
+
+* c5506fa Fix: call sgc after initCommit No (closes #54) (#59) (Jan Peer Stöcklmair)
+
 3.0.1 - January, 24 2018
 
 * d325a89 Fix: wrong value for initialCommit (#58) (Jan Peer Stöcklmair)
