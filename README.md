@@ -229,11 +229,11 @@ or the `package.json`:
 
 Available rules:
 
-- [max-char](#max-char)
-- [min-char](#min-char)
-- [end-with-dot](#end-with-dot)
+- [maxChar](#maxChar)
+- [minChar](#minChar)
+- [endWithDot](#endWithDot)
 
-#### max-char
+#### maxChar
 
 **Type:** `number`
 
@@ -245,12 +245,12 @@ Example:
 ```json
 {
   "rules": {
-    "max-char": -1
+    "maxChar": -1
   }
 }
 ```
 
-#### min-char
+#### minChar
 
 **Type:** `number`
 
@@ -262,12 +262,12 @@ Example:
 ```json
 {
   "rules": {
-    "min-char": -1
+    "minChar": -1
   }
 }
 ```
 
-#### end-with-dot
+#### endWithDot
 
 **Type:** `boolean`
 
@@ -279,7 +279,7 @@ Example:
 ```json
 {
   "rules": {
-    "end-with-dot": false
+    "endWithDot": false
   }
 }
 ```
