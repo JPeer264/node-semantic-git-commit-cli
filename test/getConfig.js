@@ -73,3 +73,19 @@ test('read global config', (t) => {
   t.deepEqual(getConfig(), sgcrc);
   fs.removeSync(path.join(homedir, '.sgcrc'));
 });
+
+test('read local config from `sgc.config.js`', (t) => {
+  const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
+
+  fs.writeFileSync(path.join(cwd, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
+  t.deepEqual(getConfig(), sgcrc);
+  fs.removeSync(path.join(cwd, 'sgc.config.js'));
+});
+
+test('read global config from `sgc.config.js`', (t) => {
+  const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
+
+  fs.writeFileSync(path.join(homedir, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
+  t.deepEqual(getConfig(), sgcrc);
+  fs.removeSync(path.join(homedir, 'sgc.config.js'));
+});
