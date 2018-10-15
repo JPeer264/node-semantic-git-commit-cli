@@ -1,3 +1,9 @@
+3.1.0 - October, 15 2018
+
+* c3de4e5 Feature: Prefer dynamic `sgc.config.js` over static `.sgcrc` (#67) (Stephan Schubert)
+* 6631218 Feat: throw on not valid route (#63) (Jan Peer Stöcklmair)
+* ff40a4c docs: update rules docs to reflect change. Fixes #61 (#62) (Martin Muzatko)
+
 3.0.2 - June, 19 2018
 
 * c5506fa Fix: call sgc after initCommit No (closes #54) (#59) (Jan Peer Stöcklmair)
