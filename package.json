@@ -25,12 +25,6 @@
       "@babel/polyfill"
     ]
   },
-  "nyc": {
-    "exclude": [
-      "test",
-      "dest"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JPeer264/node-semantic-git-commit-cli.git"
@@ -63,7 +57,8 @@
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
     "husky": "^0.13.2",
-    "nyc": "^10.1.2"
+    "nyc": "^13.1.0",
+    "sinon": "^7.1.1"
   },
   "dependencies": {
     "chalk": "^1.1.3",
