@@ -1,6 +1,5 @@
 import test from 'ava';
 import execa from 'execa';
-import { homedir } from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 import tempDir from 'temp-dir';
