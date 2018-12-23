@@ -1,3 +1,8 @@
+3.1.1 - December, 14 2018
+
+* 93ce722 Chore: update inquirer (#72) (Jan Peer Stöcklmair)
+* b30c854 Chore: move to babel7 (#68) (Jan Peer Stöcklmair)
+
 3.1.0 - October, 15 2018
 
 * c3de4e5 Feature: Prefer dynamic `sgc.config.js` over static `.sgcrc` (#67) (Stephan Schubert)
