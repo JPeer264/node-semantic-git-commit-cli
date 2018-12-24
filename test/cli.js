@@ -10,6 +10,11 @@ stub(console, 'error');
 
 const isGit = stub().returns(true);
 const isGitAdded = stub().returns(true);
+const commitCount = stub().returns(true);
+const retryCommit = stub();
+const promptOrInitialCommit = stub();
+const sgcPrompt = stub();
+const getConfig = stub();
 
 const cli = proxyquire
   .noCallThru()
@@ -17,14 +22,19 @@ const cli = proxyquire
   .load('../lib/cli', {
     'is-git-added': isGitAdded,
     'is-git-repository': isGit,
-    './helpers/sgcPrompt': stub(),
-    './helpers/retryCommit': stub(),
-    './helpers/promptOrInitialCommit': stub(),
+    'git-commit-count': commitCount,
+    './helpers/sgcPrompt': sgcPrompt,
+    './helpers/retryCommit': retryCommit,
+    './helpers/promptOrInitialCommit': promptOrInitialCommit,
+    './getConfig': getConfig,
   });
 
 test.beforeEach(() => {
+  sgcPrompt.reset();
+  retryCommit.reset();
   console.log.reset();
   console.error.reset();
+  promptOrInitialCommit.reset();
 });
 
 test('should print the right version', (t) => {
@@ -48,4 +58,33 @@ test('should fail on git repos where nothing is added', async (t) => {
   cli.default();
 
   t.is(console.error.args[0][0], chalk.red('Please', chalk.bold('git add'), 'some files first before you commit.'));
+});
+
+test('should retry commit', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  await cli.default({ r: true });
+
+  t.true(retryCommit.calledOnce);
+});
+
+test('should prompt init', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  commitCount.returns(0);
+  getConfig.returns({ initialCommit: { isEnabled: true } });
+  await cli.default();
+
+  t.true(promptOrInitialCommit.calledOnce);
+});
+
+test('should not prompt init', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  commitCount.returns(0);
+  getConfig.returns({ initialCommit: { isEnabled: false } });
+  await cli.default();
+
+  t.false(promptOrInitialCommit.called);
+  t.true(sgcPrompt.calledOnce);
 });
