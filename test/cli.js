@@ -1,56 +1,51 @@
 import test from 'ava';
-import execa from 'execa';
-import path from 'path';
-import fs from 'fs-extra';
-import tempDir from 'temp-dir';
-import randomstring from 'randomstring';
+import chalk from 'chalk';
+import { stub } from 'sinon';
+import proxyquire from 'proxyquire';
 
 import pkg from '../package.json';
 
-const cli = path.resolve('dest/cli.js');
-const testTempDir = path.join(tempDir, 'sgcTest');
+stub(console, 'log');
+stub(console, 'error');
 
-test.before(async () => {
-  await fs.ensureDir(testTempDir);
+const isGit = stub().returns(true);
+const isGitAdded = stub().returns(true);
+
+const cli = proxyquire
+  .noCallThru()
+  .noPreserveCache()
+  .load('../lib/cli', {
+    'is-git-added': isGitAdded,
+    'is-git-repository': isGit,
+    './helpers/sgcPrompt': stub(),
+    './helpers/retryCommit': stub(),
+    './helpers/promptOrInitialCommit': stub(),
+  });
+
+test.beforeEach(() => {
+  console.log.reset();
+  console.error.reset();
 });
 
-test.beforeEach(async (t) => {
-  const tempString = randomstring.generate();
-  const tempPath = path.resolve(path.join(testTempDir, tempString));
+test('should print the right version', (t) => {
+  cli.default({ v: true });
 
-  // eslint-disable-next-line no-param-reassign
-  t.context.tempString = tempString;
-  // eslint-disable-next-line no-param-reassign
-  t.context.tempPath = tempPath;
-
-  await fs.ensureDir(tempPath);
-  process.chdir(tempPath);
-});
-
-test.afterEach(() => {
-  process.chdir(path.join(__dirname, '..'));
-});
-
-test.after.always(async () => {
-  await fs.remove(testTempDir);
-});
-
-test('should print the right version', async (t) => {
-  const { stdout } = await execa(cli, ['--version']);
-
-  t.is(stdout, `v${pkg.version}`);
+  t.is(console.log.args[0][0], `v${pkg.version}`);
 });
 
 test('should fail on non git repository', async (t) => {
-  const { stderr } = await execa(cli);
+  isGit.returns(false);
+  cli.default();
 
-  t.is(stderr, 'fatal: Not a git repository (or any of the parent directories): .git');
+  t.is(console.error.args[0][0], 'fatal: Not a git repository (or any of the parent directories): .git');
+
+  isGit.resetBehavior();
 });
 
 test('should fail on git repos where nothing is added', async (t) => {
-  await execa('git', ['init']);
+  isGit.returns(true);
+  isGitAdded.returns(false);
+  cli.default();
 
-  const { stderr } = await execa(cli);
-
-  t.is(stderr, 'Please git add some files first before you commit.');
+  t.is(console.error.args[0][0], chalk.red('Please', chalk.bold('git add'), 'some files first before you commit.'));
 });

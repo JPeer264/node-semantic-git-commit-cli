@@ -3802,6 +3802,10 @@ path-is-absolute@^1.0.0, path-is-absolute@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
+path-is-absolute@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-2.0.0.tgz#cba416f4f3be5d068afe2083d9b3b3707414533d"
+
 path-is-inside@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"

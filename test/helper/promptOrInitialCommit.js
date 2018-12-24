@@ -7,10 +7,13 @@ stub(inquirer, 'prompt');
 
 const gitCommitExeca = stub().returns(Promise.resolve());
 const sgcPrompt = stub().returns(Promise.resolve());
-const promptOrInitialCommit = proxyquire.noCallThru().load('../../lib/helpers/promptOrInitialCommit', {
-  './gitCommitExeca': gitCommitExeca,
-  './sgcPrompt': sgcPrompt,
-});
+const promptOrInitialCommit = proxyquire
+  .noCallThru()
+  .noPreserveCache()
+  .load('../../lib/helpers/promptOrInitialCommit', {
+    './gitCommitExeca': gitCommitExeca,
+    './sgcPrompt': sgcPrompt,
+  });
 
 test('should run gitCommitExeca', async (t) => {
   inquirer.prompt.returns(Promise.resolve({ initCommit: true }));

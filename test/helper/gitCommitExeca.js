@@ -6,7 +6,7 @@ import { stub } from 'sinon';
 import proxyquire from 'proxyquire';
 
 const execaStub = stub();
-const gitCommitExeca = proxyquire('../../lib/helpers/gitCommitExeca', { execa: execaStub });
+const gitCommitExeca = proxyquire.noCallThru().noPreserveCache().load('../../lib/helpers/gitCommitExeca', { execa: execaStub });
 
 const filename = 'testretry';
 const sgcTempDir = path.join(tempDir, 'sgc');

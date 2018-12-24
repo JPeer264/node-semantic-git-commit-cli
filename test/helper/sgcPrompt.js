@@ -7,10 +7,13 @@ stub(inquirer, 'prompt');
 
 const gitCommitExeca = stub().callsFake(input => Promise.resolve(input));
 const combineTypeScope = stub().returns('typescope');
-const promptOrInitialCommit = proxyquire.noCallThru().load('../../lib/helpers/sgcPrompt', {
-  './gitCommitExeca': gitCommitExeca,
-  './combineTypeScope': combineTypeScope,
-});
+const promptOrInitialCommit = proxyquire
+  .noCallThru()
+  .noPreserveCache()
+  .load('../../lib/helpers/sgcPrompt', {
+    './gitCommitExeca': gitCommitExeca,
+    './combineTypeScope': combineTypeScope,
+  });
 
 test('should return editor output', async (t) => {
   inquirer.prompt.returns(Promise.resolve({
