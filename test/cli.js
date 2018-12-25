@@ -1,33 +1,90 @@
 import test from 'ava';
-import execa from 'execa';
-import { homedir } from 'os';
-import path from 'path';
+import chalk from 'chalk';
+import { stub } from 'sinon';
+import proxyquire from 'proxyquire';
 
 import pkg from '../package.json';
 
-const cli = 'dest/cli.js';
+stub(console, 'log');
+stub(console, 'error');
 
-test('should print the right version', async (t) => {
-  const { stdout } = await execa(cli, ['--version']);
+const isGit = stub().returns(true);
+const isGitAdded = stub().returns(true);
+const commitCount = stub().returns(true);
+const retryCommit = stub();
+const promptOrInitialCommit = stub();
+const sgcPrompt = stub();
+const getConfig = stub();
 
-  t.is(stdout, `v${pkg.version}`);
+const cli = proxyquire
+  .noCallThru()
+  .noPreserveCache()
+  .load('../lib/cli', {
+    'is-git-added': isGitAdded,
+    'is-git-repository': isGit,
+    'git-commit-count': commitCount,
+    './helpers/sgcPrompt': sgcPrompt,
+    './helpers/retryCommit': retryCommit,
+    './helpers/promptOrInitialCommit': promptOrInitialCommit,
+    './getConfig': getConfig,
+  });
+
+test.beforeEach(() => {
+  sgcPrompt.reset();
+  retryCommit.reset();
+  console.log.reset();
+  console.error.reset();
+  promptOrInitialCommit.reset();
 });
 
-// make serial due to dynamic process.chdir switching
+test('should print the right version', (t) => {
+  cli.default({ v: true });
+
+  t.is(console.log.args[0][0], `v${pkg.version}`);
+});
+
 test('should fail on non git repository', async (t) => {
-  // assume that the homedir is not a git repo
-  process.chdir(homedir());
+  isGit.returns(false);
+  cli.default();
 
-  const { stderr } = await execa(path.join(__dirname, '..', cli));
+  t.is(console.error.args[0][0], 'fatal: Not a git repository (or any of the parent directories): .git');
 
-  process.chdir(path.join(__dirname, '..'));
-
-  t.is(stderr, 'fatal: Not a git repository (or any of the parent directories): .git');
+  isGit.resetBehavior();
 });
 
 test('should fail on git repos where nothing is added', async (t) => {
-  // assume that the homedir is not a git repo
-  const { stderr } = await execa(cli);
+  isGit.returns(true);
+  isGitAdded.returns(false);
+  cli.default();
 
-  t.is(stderr, 'Please git add some files first before you commit.');
+  t.is(console.error.args[0][0], chalk.red('Please', chalk.bold('git add'), 'some files first before you commit.'));
+});
+
+test('should retry commit', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  await cli.default({ r: true });
+
+  t.true(retryCommit.calledOnce);
+});
+
+test('should prompt init', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  commitCount.returns(0);
+  getConfig.returns({ initialCommit: { isEnabled: true } });
+  await cli.default();
+
+  t.true(promptOrInitialCommit.calledOnce);
+});
+
+test('should not prompt init', async (t) => {
+  isGit.returns(true);
+  isGitAdded.returns(true);
+  commitCount.returns(0);
+  getConfig.returns({ initialCommit: { isEnabled: false } });
+  await cli.default();
+
+  t.false(promptOrInitialCommit.called);
+  t.true(sgcPrompt.calledOnce);
 });
