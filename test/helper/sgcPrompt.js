@@ -6,13 +6,15 @@ import inquirer from 'inquirer';
 stub(inquirer, 'prompt');
 
 const gitCommitExeca = stub().callsFake(input => Promise.resolve(input));
-const combineTypeScope = stub().returns('typescope');
+const formatters = {
+  combineTypeScope: stub().returns('typescope'),
+};
 const promptOrInitialCommit = proxyquire
   .noCallThru()
   .noPreserveCache()
   .load('../../lib/helpers/sgcPrompt', {
     './gitCommitExeca': gitCommitExeca,
-    './combineTypeScope': combineTypeScope,
+    './formatters': formatters,
   });
 
 test('should return editor output', async (t) => {
