@@ -7,7 +7,7 @@ stub(inquirer, 'prompt');
 
 const gitCommitExeca = stub().callsFake(input => Promise.resolve(input));
 const formatters = {
-  combineTypeScope: stub().returns('typescope'),
+  formatMessage: stub().returns('message'),
 };
 const promptOrInitialCommit = proxyquire
   .noCallThru()
@@ -25,17 +25,17 @@ test('should return editor output', async (t) => {
 
   const message = await promptOrInitialCommit.default();
 
-  t.is(message, 'editor output');
+  t.is(message, 'message');
 });
 
-test('should return typescope with description', async (t) => {
+test('should return scope with message', async (t) => {
   inquirer.prompt.returns(Promise.resolve({
     body: false,
-    typeScope: 'scope',
-    description: 'description',
+    scope: 'scope',
+    message: 'message',
   }));
 
   const message = await promptOrInitialCommit.default();
 
-  t.is(message, 'typescope description');
+  t.is(message, 'message');
 });

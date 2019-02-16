@@ -91,14 +91,6 @@ test('SCOPE | check if scope is off by default', (t) => {
   t.is(questionsList[1].when(), false);
 });
 
-test('SCOPE | check if scope filters correctly', (t) => {
-  const config = getConfig();
-  const questionsList = questions(config);
-
-  t.is(questionsList[1].filter('answer'), '(answer)');
-  t.is(questionsList[1].filter(''), '');
-});
-
 test('SCOPE | check if scope validates correctly', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
@@ -111,9 +103,9 @@ test('COMMIT | validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[2].validate('', 'Fix: '), 'The commit message is not allowed to be empty');
-  t.is(questionsList[2].validate('input text', 'Fix: '), true);
-  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', 'Fix: '), 'The commit message is not allowed to be longer as 72 character, but is 125 character long. Consider writing a body.\n');
+  t.is(questionsList[2].validate('', { type: 'Fix' }), 'The commit message is not allowed to be empty');
+  t.is(questionsList[2].validate('input text', { type: 'Fix' }), true);
+  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', { type: 'Fix' }), 'The commit message is not allowed to be longer as 72 character, but is 120 character long. Consider writing a body.\n');
 });
 
 test('COMMIT | when and default functions in questions', (t) => {
@@ -122,7 +114,6 @@ test('COMMIT | when and default functions in questions', (t) => {
 
   t.is(questionsList[4].when({ body: true }), true);
   t.is(questionsList[4].when({ body: false }), false);
-  t.deepEqual(questionsList[4].default({ type: ':wrench: Chore:', description: 'This is a commit message!', body: true }), ':wrench: Chore: This is a commit message!\n\n\n');
 });
 
 test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
