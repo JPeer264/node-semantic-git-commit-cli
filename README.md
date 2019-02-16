@@ -36,19 +36,50 @@ or if you already have an alias for sgc, use following instead:
 $ semantic-git-commit
 ```
 
+### Usage with parameters
+
+> Note: if any block is added it will get skipped in the questions. If there are still some questions open they will still be asked
+
+Available parameters:
+
+- `m` | `message`: Add and skip the message block
+- `t` | `type`: Add and skip the type block (this has to be defined in the [types](#types) as `argKey`)
+- `s` | `scope`: Add and skip the scope block
+
+To skip some questions you can add parameters:
+
+Following:
+```sh
+$ sgc -t feat -m some new features
+```
+
+Will generate: `Feat: some new features`
+
+--
+
+Following:
+```sh
+$ sgc -t feat -s myScope -m some new features
+```
+
+Will generate: `Feat(myScope): some new features`
+
 ### Usage with [semantic-release](https://github.com/semantic-release/semantic-release)
 
 > Configure sgc for the following [semantic-release options](https://github.com/semantic-release/semantic-release#plugins): `analyzeCommits` and `generateNotes`
 
-First step, install the following plugins with 
+First step, install the following plugins with
 ```sh
 $ npm install --save-dev sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
 ```
+
 or
+
 ```sh
 $ yarn add -D sr-commit-analyzer sr-release-notes-generator conventional-changelog-eslint
 ```
-Then, create  a `release.config.js` file in a `config` folder in the root folder of your project :
+
+Then, create  a `release.config.js` file in a `config` folder in the root folder of your project:
 ```js
 /* eslint-disable no-useless-escape */
 module.exports = {
@@ -192,6 +223,7 @@ Example:
 - `type` - This will be your commit convention and will be your start of your commit - e.g.: `Feat:`
 - `description` (optional) - The description to explain what your type is about
 - `emoji` (optional) - An emoji which will be appended at the beginning of the commit ([Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/))
+- `argKeys` | Array (optional) - Keys which will be accessed through the `-t` [parameter](#usage-with-parameters)
 
 The `.sgcrc`:
 
@@ -201,7 +233,8 @@ The `.sgcrc`:
       {
         "emoji": ":sparkles:",
         "type": "Feat:",
-        "description": "Any description to describe the type"
+        "description": "Any description to describe the type",
+        "argKeys": ["f", "feat", "feature"]
       }
     ]
 }
@@ -218,7 +251,8 @@ or the `package.json`:
             {
               "emoji": ":sparkles:",
               "type": "Feat:",
-              "description": "Any description to describe the type"
+              "description": "Any description to describe the type",
+              "argKeys": ["f", "feat", "feature"]
             }
         ]
     }
