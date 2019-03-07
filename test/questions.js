@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
 import chalk from 'chalk';
+import { stub } from 'sinon';
 
 import { withEmoji, withoutEmoji } from './fixtures/questions';
 import getConfig from '../lib/getConfig';
@@ -11,6 +12,8 @@ import questions, {
   initMessage,
   initQuestion,
 } from '../lib/questions';
+
+stub(console, 'error');
 
 const cwd = process.cwd();
 const date = new Date();
@@ -85,6 +88,26 @@ test('correct description', (t) => {
   const choicesList = choices(sgc);
 
   t.is(choicesList[0].name, `${chalk.bold('Add:')} ${'lala land'}`);
+});
+
+test('wrong argKeys', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].argKeys = 'wrong';
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList[0].key, []);
+});
+
+test('correct argKeys', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].argKeys = ['n', 'notwrong'];
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList[0].key, ['n', 'notwrong']);
 });
 
 test('TYPES | upperCase (default)', (t) => {
