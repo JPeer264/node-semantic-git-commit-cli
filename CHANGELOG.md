@@ -1,3 +1,8 @@
+3.2.0 - March, 11 2019
+
+* 89de027 Feat: sgc with parameters (closes #70) (#73) (Jan Peer Stöcklmair)
+* 786c6d3 Feat: sgc --retry (closes #65) (#69) (Jan Peer Stöcklmair)
+
 3.1.1 - December, 14 2018
 
 * 93ce722 Chore: update inquirer (#72) (Jan Peer Stöcklmair)
