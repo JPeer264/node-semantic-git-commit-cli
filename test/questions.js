@@ -2,6 +2,8 @@ import test from 'ava';
 import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
+import chalk from 'chalk';
+import { stub } from 'sinon';
 
 import { withEmoji, withoutEmoji } from './fixtures/questions';
 import getConfig from '../lib/getConfig';
@@ -10,6 +12,8 @@ import questions, {
   initMessage,
   initQuestion,
 } from '../lib/questions';
+
+stub(console, 'error');
 
 const cwd = process.cwd();
 const date = new Date();
@@ -66,6 +70,46 @@ test('check the values of the question object', (t) => {
   t.is(typeof questionsList, 'object');
 });
 
+test('alternative description', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].description = undefined;
+
+  const choicesList = choices(sgc);
+
+  t.is(choicesList[0].name, `${chalk.bold('Add:')} `);
+});
+
+test('correct description', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].description = 'lala land';
+
+  const choicesList = choices(sgc);
+
+  t.is(choicesList[0].name, `${chalk.bold('Add:')} ${'lala land'}`);
+});
+
+test('wrong argKeys', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].argKeys = 'wrong';
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList[0].key, []);
+});
+
+test('correct argKeys', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+
+  sgc.types[0].argKeys = ['n', 'notwrong'];
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList[0].key, ['n', 'notwrong']);
+});
+
 test('TYPES | upperCase (default)', (t) => {
   const sgc = getConfig(path.join(fixtures, '.sgcrc'));
 
@@ -84,6 +128,20 @@ test('TYPES | lowerCase', (t) => {
   t.is(choicesList[0].value, 'add:');
 });
 
+test('TYPE | just show if type has not been added', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[0].when(), true);
+});
+
+test('TYPE | not show if type has been added', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config, { t: 'feat' });
+
+  t.is(questionsList[0].when(), false);
+});
+
 test('SCOPE | check if scope is off by default', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
@@ -91,12 +149,31 @@ test('SCOPE | check if scope is off by default', (t) => {
   t.is(questionsList[1].when(), false);
 });
 
-test('SCOPE | check if scope filters correctly', (t) => {
+test('SCOPE | check if scope is off when it has been added by argv', (t) => {
   const config = getConfig();
+  const questionsList = questions(config, { s: 'some scope' });
+
+  t.is(questionsList[1].when(), false);
+});
+
+test('SCOPE | check if scope is off when it has been added in config and argv', (t) => {
+  const config = getConfig();
+
+  config.scope = true;
+
+  const questionsList = questions(config, { s: 'some scope' });
+
+  t.is(questionsList[1].when(), false);
+});
+
+test('SCOPE | check if scope is on when it has been added just in config', (t) => {
+  const config = getConfig();
+
+  config.scope = true;
+
   const questionsList = questions(config);
 
-  t.is(questionsList[1].filter('answer'), '(answer)');
-  t.is(questionsList[1].filter(''), '');
+  t.is(questionsList[1].when(), true);
 });
 
 test('SCOPE | check if scope validates correctly', (t) => {
@@ -107,22 +184,42 @@ test('SCOPE | check if scope validates correctly', (t) => {
   t.is(questionsList[1].validate('correct'), true);
 });
 
-test('COMMIT | validate functions in questions', (t) => {
+test('MESSAGE | validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[2].validate('', 'Fix: '), 'The commit message is not allowed to be empty');
-  t.is(questionsList[2].validate('input text', 'Fix: '), true);
-  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', 'Fix: '), 'The commit message is not allowed to be longer as 72 character, but is 125 character long. Consider writing a body.\n');
+  t.is(questionsList[2].validate('', { type: 'Fix' }), 'The commit message is not allowed to be empty');
+  t.is(questionsList[2].validate('input text', { type: 'Fix' }), true);
+  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', { type: 'Fix' }), 'The commit message is not allowed to be longer as 72 character, but is 120 character long. Consider writing a body.\n');
 });
 
-test('COMMIT | when and default functions in questions', (t) => {
+test('MESSAGE | do not show if there is the message in argv', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config, { m: 'something' });
+
+  t.is(questionsList[2].when(), false);
+});
+
+test('MESSAGE | show if no argv has been added', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[2].when(), true);
+});
+
+test('EDITOR | when and default functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
   t.is(questionsList[4].when({ body: true }), true);
   t.is(questionsList[4].when({ body: false }), false);
-  t.deepEqual(questionsList[4].default({ type: ':wrench: Chore:', description: 'This is a commit message!', body: true }), ':wrench: Chore: This is a commit message!\n\n\n');
+});
+
+test('EDITOR | should return formatted message', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[4].default({ message: 'message', type: 'type' }), 'type: message\n\n\n');
 });
 
 test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
