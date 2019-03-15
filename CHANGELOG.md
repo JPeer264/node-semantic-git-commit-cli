@@ -1,3 +1,7 @@
+3.2.1 - March, 15 2019
+
+* bbc1a17 Fix: target to the correct entrypoint (JPeer264)
+
 3.2.0 - March, 11 2019
 
 * 89de027 Feat: sgc with parameters (closes #70) (#73) (Jan Peer Stöcklmair)
