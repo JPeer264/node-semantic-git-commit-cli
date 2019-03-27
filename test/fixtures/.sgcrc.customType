@@ -1,0 +1,31 @@
+{
+  "scope": false,
+  "body": true,
+  "emoji": false,
+  "lowercaseTypes": false,
+  "initialCommit": {
+    "isEnabled": true,
+    "emoji": ":tada:",
+    "message": "Initial commit"
+  },
+  "types": [
+    {
+      "emoji": ":wrench:",
+      "type": false,
+      "description": "A custom type with prefix",
+      "prefix": "SGC-",
+      "argKeys": ["cu", "custom"]
+    },
+    {
+      "emoji": ":wrench:",
+      "type": false,
+      "description": "Another custom type with prefix",
+      "prefix": "SGGC-"
+    }
+  ],
+  "rules": {
+    "maxChar": 72,
+    "minChar": 10,
+    "endWithDot": false
+  }
+}
