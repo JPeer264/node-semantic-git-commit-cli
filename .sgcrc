@@ -11,6 +11,13 @@
   "types": [
     {
       "emoji": ":wrench:",
+      "type": false,
+      "description": "A custom type with prefix",
+      "prefix": "SGC-",
+      "argKeys": ["cu", "custom"]
+    },
+    {
+      "emoji": ":wrench:",
       "type": "Chore:",
       "description": "Changes that affect the build system or external dependencies and moving files",
       "argKeys": ["c", "chore"]
