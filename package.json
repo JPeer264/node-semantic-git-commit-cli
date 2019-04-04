@@ -4,8 +4,8 @@
   "description": "A CLI for semantic git commits",
   "main": "dest",
   "bin": {
-    "semantic-git-commit": "dest/index.js",
-    "sgc": "dest/index.js"
+    "semantic-git-commit": "./dest/index.js",
+    "sgc": "./dest/index.js"
   },
   "scripts": {
     "pretest": "npm run lint & npm run babel",
