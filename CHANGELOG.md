@@ -1,3 +1,7 @@
+3.2.2 - April, 04 2019
+
+* dc0e5d7 Fix: take formattedMessage if editor is undefined (closes #77) (#78) (Jan Peer Stöcklmair)
+
 3.2.1 - March, 15 2019
 
 * bbc1a17 Fix: target to the correct entrypoint (JPeer264)
