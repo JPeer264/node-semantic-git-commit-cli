@@ -102,3 +102,44 @@ test('FORMATMESSAGE | should format message with more argv overrides', (t) => {
 
   t.is(message, 'myTypeOverwrite (myScopeOverwrite): messageOverwrite');
 });
+
+test('FORMATMESSAGE | should format when editor is undefined but body is set to true', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: true,
+    },
+  );
+
+  t.is(message, 'myType (myScope): message');
+});
+
+test('FORMATMESSAGE | should take editor when editor is not undefined and body is set to true', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: true,
+      editor: 'take this',
+    },
+  );
+
+  t.is(message, 'take this');
+});
+
+test('FORMATMESSAGE | should format when editor is not undefined and body is set to false', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: false,
+      editor: 'take this',
+    },
+  );
+
+  t.is(message, 'myType (myScope): message');
+});
