@@ -303,6 +303,14 @@ test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
   t.is(questionsList[3].when(), config.body);
 });
 
+test('CONFIRM EDITOR | check if it returns config.body', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.body].when(), config.body);
+});
+
+
 test('INIT COMMIT | check message without emoji', (t) => {
   const config = getConfig();
   const message = initMessage(config);
