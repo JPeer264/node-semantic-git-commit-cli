@@ -122,10 +122,18 @@ Then, update the  `semantic-release ` script to your `package.json` to this :
 
 You can even create a global config. Just go to your users home and create a `.sgcrc`. The global config will be triggered if no project configurations are present.
 
+The order and namings of the commit (this can vary with different settings):
+```
+<type>(<scope>)<delimiter> <message>
+
+<body>
+```
+
 **Options:**
 - [body](#body)
 - [scope](#scope)
 - [emoji](#emoji)
+- [delimiter](#delimiter)
 - [lowercaseTypes](#lowercaseTypes)
 - [initialCommit](#initialCommit)
 - [types](#types)
@@ -173,6 +181,36 @@ Example:
 ```json
 {
   "emoji": true
+}
+```
+
+### delimiter
+
+**Type:** `string`
+
+**Default:** `:`
+
+A string which is the delimiter between the type and the message.
+
+Example:
+```json
+{
+  "delimiter": ":"
+}
+```
+or type specific delimiters, which will overwrite the global one:
+```json
+{
+  "delimiter": ":",
+  "types": [
+    {
+      "type": "Feat",
+      "delimiter": " -"
+    }, // will generate "Feat - message"
+    {
+      "type": "Fix",
+    } // will generate "Fix: message"
+  ]
 }
 ```
 
