@@ -9,6 +9,7 @@ import { withEmoji, withoutEmoji } from './fixtures/questions';
 import getConfig from '../lib/getConfig';
 import questions, {
   choices,
+  customName,
   initMessage,
   initQuestion,
 } from '../lib/questions';
@@ -23,6 +24,15 @@ const datetime = date.toISOString().slice(0, 10);
 const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4);
 
 let globalExist = false;
+
+const questionsListOrder = {
+  type: 0,
+  customType: 1,
+  scope: 2,
+  message: 3,
+  body: 4,
+  editor: 5,
+};
 
 // rename global .sgcrc
 test.before(() => {
@@ -61,6 +71,19 @@ test('choices are rendered with emoji (default)', (t) => {
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withEmoji);
+});
+
+test('choices are rendered as custom type', (t) => {
+  const sgc = getConfig(path.join(fixtures, '.sgcrc.customType'));
+
+  sgc.emoji = false;
+  sgc.types[0].type = false;
+  sgc.types[1].type = false;
+
+  const choicesList = choices(sgc);
+
+  t.deepEqual(choicesList[0].value, `${customName} 1`);
+  t.deepEqual(choicesList[1].value, `${customName} 2`);
 });
 
 test('check the values of the question object', (t) => {
@@ -132,28 +155,79 @@ test('TYPE | just show if type has not been added', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[0].when(), true);
+  t.is(questionsList[questionsListOrder.type].when(), true);
 });
 
 test('TYPE | not show if type has been added', (t) => {
   const config = getConfig();
   const questionsList = questions(config, { t: 'feat' });
 
-  t.is(questionsList[0].when(), false);
+  t.is(questionsList[questionsListOrder.type].when(), false);
 });
 
 test('SCOPE | check if scope is off by default', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[1].when(), false);
+  t.is(questionsList[questionsListOrder.scope].when(), false);
+});
+
+test('CUSTOMTYPE | check if customType gets shown when type is defined', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.customType].when({ type: 'Feat:' }), false);
+  t.is(questionsList[questionsListOrder.customType].when({ type: 'anything' }), false);
+});
+
+test('CUSTOMTYPE | check if customType gets shown when type is custom', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.customType].when({ type: customName }), true);
+  t.is(questionsList[questionsListOrder.customType].when({ type: `${customName}feat` }), true);
+});
+
+test('CUSTOMTYPE | should not show when argv is specified', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const questionsList = questions(config, { c: 'Feat:' });
+
+  t.is(questionsList[questionsListOrder.customType].when({ type: customName }), false);
+  t.is(questionsList[questionsListOrder.customType].when({ type: `${customName}feat` }), false);
+});
+
+test('CUSTOMTYPE | return prefixed answer', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+
+  config.types[0].prefix = 'myprefix';
+
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.customType].filter('answer', { type: `${customName} 1` }), 'myprefixanswer');
+});
+
+test('CUSTOMTYPE | return nonprefixed answer', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+
+  config.types[0].prefix = undefined;
+
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.customType].filter('answer', { type: `${customName} 1` }), 'answer');
+});
+
+test('CUSTOMTYPE | return any type', (t) => {
+  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.customType].filter('something', { type: 'none' }), 'something');
 });
 
 test('SCOPE | check if scope is off when it has been added by argv', (t) => {
   const config = getConfig();
   const questionsList = questions(config, { s: 'some scope' });
 
-  t.is(questionsList[1].when(), false);
+  t.is(questionsList[questionsListOrder.scope].when(), false);
 });
 
 test('SCOPE | check if scope is off when it has been added in config and argv', (t) => {
@@ -163,7 +237,7 @@ test('SCOPE | check if scope is off when it has been added in config and argv', 
 
   const questionsList = questions(config, { s: 'some scope' });
 
-  t.is(questionsList[1].when(), false);
+  t.is(questionsList[questionsListOrder.scope].when(), false);
 });
 
 test('SCOPE | check if scope is on when it has been added just in config', (t) => {
@@ -173,53 +247,53 @@ test('SCOPE | check if scope is on when it has been added just in config', (t) =
 
   const questionsList = questions(config);
 
-  t.is(questionsList[1].when(), true);
+  t.is(questionsList[questionsListOrder.scope].when(), true);
 });
 
 test('SCOPE | check if scope validates correctly', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[1].validate('not correct'), 'No whitespaces allowed');
-  t.is(questionsList[1].validate('correct'), true);
+  t.is(questionsList[questionsListOrder.scope].validate('not correct'), 'No whitespaces allowed');
+  t.is(questionsList[questionsListOrder.scope].validate('correct'), true);
 });
 
 test('MESSAGE | validate functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[2].validate('', { type: 'Fix' }), 'The commit message is not allowed to be empty');
-  t.is(questionsList[2].validate('input text', { type: 'Fix' }), true);
-  t.is(questionsList[2].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', { type: 'Fix' }), 'The commit message is not allowed to be longer as 72 character, but is 120 character long. Consider writing a body.\n');
+  t.is(questionsList[questionsListOrder.message].validate('', { type: 'Fix' }), 'The commit message is not allowed to be empty');
+  t.is(questionsList[questionsListOrder.message].validate('input text', { type: 'Fix' }), true);
+  t.is(questionsList[questionsListOrder.message].validate('This message has over 72 characters. So this test will definitely fail. I can guarantee that I am telling the truth', { type: 'Fix' }), 'The commit message is not allowed to be longer as 72 character, but is 120 character long. Consider writing a body.\n');
 });
 
 test('MESSAGE | do not show if there is the message in argv', (t) => {
   const config = getConfig();
   const questionsList = questions(config, { m: 'something' });
 
-  t.is(questionsList[2].when(), false);
+  t.is(questionsList[questionsListOrder.message].when(), false);
 });
 
 test('MESSAGE | show if no argv has been added', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[2].when(), true);
+  t.is(questionsList[questionsListOrder.message].when(), true);
 });
 
 test('EDITOR | when and default functions in questions', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[4].when({ body: true }), true);
-  t.is(questionsList[4].when({ body: false }), false);
+  t.is(questionsList[questionsListOrder.editor].when({ body: true }), true);
+  t.is(questionsList[questionsListOrder.editor].when({ body: false }), false);
 });
 
 test('EDITOR | should return formatted message', (t) => {
   const config = getConfig();
   const questionsList = questions(config);
 
-  t.is(questionsList[4].default({ message: 'message', type: 'type' }), 'type: message\n\n\n');
+  t.is(questionsList[questionsListOrder.editor].default({ message: 'message', type: 'type' }), 'type: message\n\n\n');
 });
 
 test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
@@ -228,6 +302,14 @@ test('CONFIRM EDITOR | check if it shows if it has to', (t) => {
 
   t.is(questionsList[3].when(), config.body);
 });
+
+test('CONFIRM EDITOR | check if it returns config.body', (t) => {
+  const config = getConfig();
+  const questionsList = questions(config);
+
+  t.is(questionsList[questionsListOrder.body].when(), config.body);
+});
+
 
 test('INIT COMMIT | check message without emoji', (t) => {
   const config = getConfig();

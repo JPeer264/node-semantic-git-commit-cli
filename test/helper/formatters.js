@@ -41,6 +41,15 @@ test('FORMATMESSAGE | should format message', (t) => {
   t.is(message, 'myType: something');
 });
 
+test('FORMATMESSAGE | should format message with customType', (t) => {
+  const message = formatMessage({
+    message: '     something      ',
+    customType: 'custom',
+  });
+
+  t.is(message, 'custom: something');
+});
+
 test('FORMATMESSAGE | should format with scope', (t) => {
   const message = formatMessage({
     type: 'myType',

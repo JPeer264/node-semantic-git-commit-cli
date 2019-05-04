@@ -217,10 +217,12 @@ Example:
 
 > Types will define your git commits. If `types` is not set in your own `.sgcrc`, the `types` of the global [.sgcrc](.sgcrc)
 
+> Notice: If the `type` is `false` it will let you to manually add the type. This is usefull especially if you have a `prefix` named `SGC-` to reference these as a ticket number for your ticket tool
 
 **Keys**
 
-- `type` - This will be your commit convention and will be your start of your commit - e.g.: `Feat:`
+- `type` (`string` or `false`) - This will be your commit convention and will be your start of your commit - e.g.: `Feat:`
+- `prefix` (optional) - This option is just valid, if `type` is `false`
 - `description` (optional) - The description to explain what your type is about
 - `emoji` (optional) - An emoji which will be appended at the beginning of the commit ([Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/))
 - `argKeys` | Array (optional) - Keys which will be accessed through the `-t` [parameter](#usage-with-parameters)
