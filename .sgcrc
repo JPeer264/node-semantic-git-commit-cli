@@ -2,6 +2,7 @@
   "scope": false,
   "body": true,
   "emoji": false,
+  "delimiter": ":",
   "lowercaseTypes": false,
   "initialCommit": {
     "isEnabled": true,
@@ -11,55 +12,55 @@
   "types": [
     {
       "emoji": ":wrench:",
-      "type": "Chore:",
+      "type": "Chore",
       "description": "Changes that affect the build system or external dependencies and moving files",
       "argKeys": ["c", "chore"]
     },
     {
       "emoji": ":construction_worker:",
-      "type": "CI:",
+      "type": "CI",
       "description": "Changes to our CI configuration files and scripts",
       "argKeys": ["ci"]
     },
     {
       "emoji": ":memo:",
-      "type": "Docs:",
+      "type": "Docs",
       "description": "Documentation only changes",
       "argKeys": ["d", "docs"]
     },
     {
       "emoji": ":sparkles:",
-      "type": "Feat:",
+      "type": "Feat",
       "description": "New feature",
       "argKeys": ["f", "feat", "feature"]
     },
     {
       "emoji": ":bug:",
-      "type": "Fix:",
+      "type": "Fix",
       "description": "Bug fix",
       "argKeys": ["fi", "fix", "bug"]
     },
     {
       "emoji": ":zapr:",
-      "type": "Perf:",
+      "type": "Perf",
       "description": "Code change that improves performance",
       "argKeys": ["p", "perf", "performance"]
     },
     {
       "emoji": ":hammer:",
-      "type": "Refactor:",
+      "type": "Refactor",
       "description": "Code change that neither fixes a bug nor adds a feature",
       "argKeys": ["r", "refactor"]
     },
     {
       "emoji": ":art:",
-      "type": "Style:",
+      "type": "Style",
       "description": "Changes that do not affect the meaning of the code",
       "argKeys": ["s", "style"]
     },
     {
       "emoji": ":white_check_mark:",
-      "type": "Test:",
+      "type": "Test",
       "description": "Adding missing tests or correcting existing tests",
       "argKeys": ["t", "test"]
     }
