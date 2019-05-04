@@ -32,6 +32,16 @@ test('COMBINETYPESCOPE | should combine type with : and scope', (t) => {
   t.is(typeScope, 'myType (myScope):');
 });
 
+test('COMBINETYPESCOPE | should combine type with another delimiter', (t) => {
+  const typeScope = combineTypeScope('myType:', 'myScope', ' -     ');
+  const typeScope2 = combineTypeScope('myType:', 'myScope', ' =');
+  const typeScope3 = combineTypeScope('myType', 'myScope', ' -');
+
+  t.is(typeScope, 'myType (myScope) -');
+  t.is(typeScope2, 'myType (myScope) =');
+  t.is(typeScope3, 'myType (myScope) -');
+});
+
 test('FORMATMESSAGE | should format message', (t) => {
   const message = formatMessage({
     type: 'myType',
@@ -142,4 +152,44 @@ test('FORMATMESSAGE | should format when editor is not undefined and body is set
   );
 
   t.is(message, 'myType (myScope): message');
+});
+
+test('FORMATMESSAGE | should format with a delimiter', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: false,
+      editor: 'take this',
+    },
+    undefined,
+    {
+      delimiter: ' -',
+    },
+  );
+
+  t.is(message, 'myType (myScope) - message');
+});
+
+
+test('FORMATMESSAGE | should format with a type specific delimiter', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: false,
+      editor: 'take this',
+    },
+    undefined,
+    {
+      delimiter: ' -',
+      types: [
+        { type: 'myType', delimiter: '---' },
+      ],
+    },
+  );
+
+  t.is(message, 'myType (myScope)--- message');
 });

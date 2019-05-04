@@ -2,6 +2,7 @@
   "scope": false,
   "body": true,
   "emoji": false,
+  "delimiter": ":",
   "lowercaseTypes": false,
   "initialCommit": {
     "isEnabled": true,
