@@ -1,3 +1,8 @@
+3.3.0 - May, 06 2019
+
+* c35b175 Feat: add custom delimiter (closes #74) (#80) (Jan Peer Stöcklmair)
+* 0435a16 Feat: custom type (closes #31) (#76) (Jan Peer Stöcklmair)
+
 3.2.2 - April, 04 2019
 
 * dc0e5d7 Fix: take formattedMessage if editor is undefined (closes #77) (#78) (Jan Peer Stöcklmair)
