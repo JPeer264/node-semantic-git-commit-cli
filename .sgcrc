@@ -4,6 +4,7 @@
   "emoji": false,
   "delimiter": ":",
   "lowercaseTypes": false,
+  "addScopeSpace": true,
   "initialCommit": {
     "isEnabled": true,
     "emoji": ":tada:",

@@ -137,6 +137,7 @@ The order and namings of the commit (this can vary with different settings):
 - [lowercaseTypes](#lowercaseTypes)
 - [initialCommit](#initialCommit)
 - [types](#types)
+- [addScopeSpace](#addScopeSpace)
 - [rules](#rules)
 
 ### body
@@ -298,6 +299,24 @@ or the `package.json`:
     }
 }
 ```
+
+### addScopeSpace
+
+**Type:** `boolean`
+
+**Default:** `true`
+
+> This rule just affects the commit message if `scope` is set to true
+
+If set to `false` there will be no space between `<type>` and `(<scope>)`
+
+Example:
+```json
+{
+  "addScopeSpace": false
+}
+```
+
 
 ### rules
 

@@ -42,6 +42,20 @@ test('COMBINETYPESCOPE | should combine type with another delimiter', (t) => {
   t.is(typeScope3, 'myType (myScope) -');
 });
 
+test('COMBINETYPESCOPE | should combine type with another delimiter but with no space between type | #79', (t) => {
+  const typeScope = combineTypeScope('myType:', 'myScope', ' -     ');
+  const typeScope2 = combineTypeScope('myType:', 'myScope', ' =', false);
+  const typeScope3 = combineTypeScope('myType', 'myScope', undefined, false);
+  const typeNoScope = combineTypeScope('myType', undefined, undefined, false);
+  const typeNoScope2 = combineTypeScope('myType', undefined, undefined, true);
+
+  t.is(typeScope, 'myType (myScope) -');
+  t.is(typeScope2, 'myType(myScope) =');
+  t.is(typeScope3, 'myType(myScope):');
+  t.is(typeNoScope, 'myType:');
+  t.is(typeNoScope2, 'myType:');
+});
+
 test('FORMATMESSAGE | should format message', (t) => {
   const message = formatMessage({
     type: 'myType',
@@ -124,6 +138,23 @@ test('FORMATMESSAGE | should format when editor is undefined but body is set to 
   );
 
   t.is(message, 'myType (myScope): message');
+});
+
+test('FORMATMESSAGE | should format when editor is undefined but body is set to true, and no scopespace', (t) => {
+  const message = formatMessage(
+    {
+      type: 'myType',
+      scope: 'myScope',
+      message: 'message',
+      body: true,
+    },
+    undefined,
+    {
+      addScopeSpace: false,
+    },
+  );
+
+  t.is(message, 'myType(myScope): message');
 });
 
 test('FORMATMESSAGE | should take editor when editor is not undefined and body is set to true', (t) => {
