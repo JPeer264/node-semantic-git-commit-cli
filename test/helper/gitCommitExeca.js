@@ -34,4 +34,3 @@ test('commit should pass', async (t) => {
   t.true(isOk);
   t.false(await fs.exists(pathToRetryFile));
 });
-

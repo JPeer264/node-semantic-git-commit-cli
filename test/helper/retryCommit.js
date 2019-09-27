@@ -33,4 +33,3 @@ test('commit should pass', async (t) => {
 
   t.is(gitCommitExeca.args[0][0], 'new commit');
 });
-

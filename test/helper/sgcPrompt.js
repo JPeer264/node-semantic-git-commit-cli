@@ -5,7 +5,7 @@ import inquirer from 'inquirer';
 
 stub(inquirer, 'prompt');
 
-const gitCommitExeca = stub().callsFake(input => Promise.resolve(input));
+const gitCommitExeca = stub().callsFake((input) => Promise.resolve(input));
 const formatters = {
   formatMessage: stub().returns('message'),
 };
