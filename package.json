@@ -13,8 +13,19 @@
     "lint": "eslint lib test",
     "babel": "babel lib -d dest",
     "prepublish": "npm run babel",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "prepush": "npm test"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "engines": {
     "node": ">=8.0.0"
@@ -56,7 +67,8 @@
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "husky": "^0.13.2",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.4.0",
     "nyc": "^13.1.0",
     "proxyquire": "^2.1.0",
     "randomstring": "^1.1.5",
