@@ -1,3 +1,7 @@
+3.4.0 - September, 27 2019
+
+* 09e5d8a Feat: optional space between type and scope (closes #79) (JPeer264)
+
 3.3.0 - May, 06 2019
 
 * c35b175 Feat: add custom delimiter (closes #74) (#80) (Jan Peer Stöcklmair)
