@@ -1,3 +1,14 @@
+3.5.0 - October, 13 2019
+
+* e453c89 Migrate to travis-ci.com (Jan Peer Stöcklmair)
+* 2936a06 Chore: remove installing npm version in appveyor config (JPeer264)
+* 13a0fd3 Feat: also bubble up with package.json (cc: #64) (JPeer264)
+* 8f85ab1 Chore: remove yarn.lock (JPeer264)
+* 0b8f9a5 Feat: bubble up to closest sgcrc (closes #64) (JPeer264)
+* 4794873 Chore: update husky | lint-staged strategy (JPeer264)
+* 1fc50c0 Chore: drop support of node v6 add support for v10 + v12 (JPeer264)
+* 7e27616 Chore: update eslint to latest (JPeer264)
+
 3.4.0 - September, 27 2019
 
 * 09e5d8a Feat: optional space between type and scope (closes #79) (JPeer264)
