@@ -38,7 +38,7 @@ test.after.always(() => {
 });
 
 test('read config from a specific path', (t) => {
-  t.deepEqual(getConfig(path.join(fixtures, '.sgcrc')), json.readToObjSync(path.join(fixtures, '.sgcrc')));
+  t.deepEqual(getConfig(fixtures), json.readToObjSync(path.join(fixtures, '.sgcrc')));
 });
 
 test('read config from a .sgcrc_default', (t) => {
@@ -88,4 +88,11 @@ test('read global config from `sgc.config.js`', (t) => {
   fs.writeFileSync(path.join(homedir, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
   t.deepEqual(getConfig(), sgcrc);
   fs.removeSync(path.join(homedir, 'sgc.config.js'));
+});
+
+test('read a .sgcrc_default from a deep nested cwd', (t) => {
+  const deepCwd = path.join(fixtures, 'very', 'deep', 'directory');
+  const fixturesConfig = json.readToObjSync(path.join(fixtures, '.sgcrc'));
+
+  t.deepEqual(getConfig(deepCwd), fixturesConfig);
 });

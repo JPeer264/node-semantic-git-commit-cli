@@ -57,14 +57,14 @@ test.after.always(() => {
 });
 
 test('choices are rendered without emoji', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
   const choicesList = choices(sgc);
 
   t.deepEqual(choicesList, withoutEmoji);
 });
 
 test('choices are rendered with emoji (default)', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.emoji = true;
 
@@ -74,7 +74,7 @@ test('choices are rendered with emoji (default)', (t) => {
 });
 
 test('choices are rendered as custom type', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const sgc = getConfig(fixtures, '.sgcrc.customType');
 
   sgc.emoji = false;
   sgc.types[0].type = false;
@@ -94,7 +94,7 @@ test('check the values of the question object', (t) => {
 });
 
 test('alternative description', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.types[0].description = undefined;
 
@@ -104,7 +104,7 @@ test('alternative description', (t) => {
 });
 
 test('correct description', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.types[0].description = 'lala land';
 
@@ -114,7 +114,7 @@ test('correct description', (t) => {
 });
 
 test('wrong argKeys', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.types[0].argKeys = 'wrong';
 
@@ -124,7 +124,7 @@ test('wrong argKeys', (t) => {
 });
 
 test('correct argKeys', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.types[0].argKeys = ['n', 'notwrong'];
 
@@ -134,7 +134,7 @@ test('correct argKeys', (t) => {
 });
 
 test('TYPES | upperCase (default)', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   const choicesList = choices(sgc);
 
@@ -142,7 +142,7 @@ test('TYPES | upperCase (default)', (t) => {
 });
 
 test('TYPES | lowerCase', (t) => {
-  const sgc = getConfig(path.join(fixtures, '.sgcrc'));
+  const sgc = getConfig(fixtures, '.sgcrc');
 
   sgc.lowercaseTypes = true;
 
@@ -173,7 +173,7 @@ test('SCOPE | check if scope is off by default', (t) => {
 });
 
 test('CUSTOMTYPE | check if customType gets shown when type is defined', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   t.is(questionsList[questionsListOrder.customType].when({ type: 'Feat:' }), false);
@@ -181,7 +181,7 @@ test('CUSTOMTYPE | check if customType gets shown when type is defined', (t) => 
 });
 
 test('CUSTOMTYPE | check if customType gets shown when type is custom', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   t.is(questionsList[questionsListOrder.customType].when({ type: customName }), true);
@@ -189,7 +189,7 @@ test('CUSTOMTYPE | check if customType gets shown when type is custom', (t) => {
 });
 
 test('CUSTOMTYPE | should not show when argv is specified', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
   const questionsList = questions(config, { c: 'Feat:' });
 
   t.is(questionsList[questionsListOrder.customType].when({ type: customName }), false);
@@ -197,7 +197,7 @@ test('CUSTOMTYPE | should not show when argv is specified', (t) => {
 });
 
 test('CUSTOMTYPE | return prefixed answer', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
 
   config.types[0].prefix = 'myprefix';
 
@@ -207,7 +207,7 @@ test('CUSTOMTYPE | return prefixed answer', (t) => {
 });
 
 test('CUSTOMTYPE | return nonprefixed answer', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
 
   config.types[0].prefix = undefined;
 
@@ -217,7 +217,7 @@ test('CUSTOMTYPE | return nonprefixed answer', (t) => {
 });
 
 test('CUSTOMTYPE | return any type', (t) => {
-  const config = getConfig(path.join(fixtures, '.sgcrc.customType'));
+  const config = getConfig(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   t.is(questionsList[questionsListOrder.customType].filter('something', { type: 'none' }), 'something');
