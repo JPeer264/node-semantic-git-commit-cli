@@ -1,6 +1,6 @@
 # semantic-git-commit-cli
 
-[![Build Status](https://travis-ci.org/JPeer264/node-semantic-git-commit-cli.svg?branch=master)](https://travis-ci.org/JPeer264/node-semantic-git-commit-cli)
+[![Build Status](https://travis-ci.com/JPeer264/node-semantic-git-commit-cli.svg?branch=master)](https://travis-ci.com/JPeer264/node-semantic-git-commit-cli)
 [![Build status](https://ci.appveyor.com/api/projects/status/t9xwo0r3n2oe5ywf/branch/master?svg=true)](https://ci.appveyor.com/project/JPeer264/node-semantic-git-commit-cli/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/JPeer264/node-semantic-git-commit-cli/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/node-semantic-git-commit-cli?branch=master)
 
