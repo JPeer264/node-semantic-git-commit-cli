@@ -200,7 +200,7 @@ Example:
 }
 ```
 or type specific delimiters, which will overwrite the global one:
-```json
+```json5
 {
   "delimiter": ":",
   "types": [
