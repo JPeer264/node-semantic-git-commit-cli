@@ -1,3 +1,7 @@
+3.5.1 - March, 04 2020
+
+* 95da27b Docs: Fixed erroneous json comments (#81) (Seniru Pasan Indira)
+
 3.5.0 - October, 13 2019
 
 * e453c89 Migrate to travis-ci.com (Jan Peer Stöcklmair)

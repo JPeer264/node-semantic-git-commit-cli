@@ -1,6 +1,6 @@
 {
   "name": "semantic-git-commit-cli",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "A CLI for semantic git commits",
   "main": "dest",
   "bin": {
