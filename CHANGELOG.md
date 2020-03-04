@@ -1,3 +1,7 @@
+3.5.2 - March, 04 2020
+
+* b42d46a Docs: add open collective (JPeer264)
+
 3.5.1 - March, 04 2020
 
 * 95da27b Docs: Fixed erroneous json comments (#81) (Seniru Pasan Indira)
