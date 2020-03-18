@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage --runInBand",
-    "lint": "eslint lib test",
+    "lint": "eslint lib __tests__",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
@@ -49,10 +49,12 @@
   ],
   "homepage": "https://github.com/JPeer264/node-semantic-git-commit-cli#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
     "coveralls": "^2.12.0",
-    "eslint": "^6.4.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
     "husky": "^3.0.5",
     "jest": "^25.1.0",
     "lint-staged": "^9.4.0",
