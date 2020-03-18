@@ -79,6 +79,6 @@
     "path-is-absolute": "^2.0.0",
     "temp-dir": "^1.0.0",
     "update-notifier": "^2.1.0",
-    "yargs": "^7.0.2"
+    "yargs": "^15.3.1"
   }
 }
