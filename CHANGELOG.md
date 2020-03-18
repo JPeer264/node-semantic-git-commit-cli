@@ -1,3 +1,11 @@
+3.6.0 - March, 18 2020
+
+* 9c30f29 Feat: use autocomplete instead of list for types (closes #83) (JPeer264)
+* 1ff0261 Chore: upgrade eslint with ts support (JPeer264)
+* c7ee1fc Test: move tests from ava to jest (JPeer264)
+* adf6b46 Chore: move to typescript compiler (JPeer264)
+* a0473c5 Chore: remove yarn (JPeer264)
+
 3.5.2 - March, 04 2020
 
 * b42d46a Docs: add open collective (JPeer264)
