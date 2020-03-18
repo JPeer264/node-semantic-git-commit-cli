@@ -8,12 +8,11 @@
     "sgc": "./dest/index.js"
   },
   "scripts": {
-    "pretest": "npm run lint & npm run build",
     "build": "tsc",
-    "test": "nyc ava -s",
+    "test": "jest --coverage --runInBand",
     "lint": "eslint lib test",
     "prepublish": "npm run build",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "husky": {
     "hooks": {
@@ -29,12 +28,6 @@
   },
   "engines": {
     "node": ">=8.0.0"
-  },
-  "ava": {
-    "require": [
-      "@babel/register",
-      "@babel/polyfill"
-    ]
   },
   "repository": {
     "type": "git",
@@ -56,23 +49,16 @@
   ],
   "homepage": "https://github.com/JPeer264/node-semantic-git-commit-cli#readme",
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/register": "^7.0.0",
-    "ava": "^1.2.1",
     "coveralls": "^2.12.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.5",
+    "jest": "^25.1.0",
     "lint-staged": "^9.4.0",
-    "nyc": "^13.1.0",
-    "proxyquire": "^2.1.0",
     "randomstring": "^1.1.5",
     "sinon": "^7.1.1",
+    "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {

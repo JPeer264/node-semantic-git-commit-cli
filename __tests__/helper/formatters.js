@@ -1,90 +1,88 @@
-import test from 'ava';
-
 import { formatScope, combineTypeScope, formatMessage } from '../../lib/helpers/formatters';
 
-test('FORMATSCOPE | should format scope correctly', (t) => {
+it('FORMATSCOPE | should format scope correctly', () => {
   const scope = formatScope();
 
-  t.is(scope, '');
+  expect(scope).toBe('');
 });
 
-test('FORMATSCOPE | should trim scope', (t) => {
+it('FORMATSCOPE | should trim scope', () => {
   const scope = formatScope('         te st  ');
 
-  t.is(scope, '(te st)');
+  expect(scope).toBe('(te st)');
 });
 
-test('COMBINETYPESCOPE | should combine type and scope correctly', (t) => {
+it('COMBINETYPESCOPE | should combine type and scope correctly', () => {
   const typeScope = combineTypeScope('myType', 'myScope');
 
-  t.is(typeScope, 'myType (myScope):');
+  expect(typeScope).toBe('myType (myScope):');
 });
 
-test('COMBINETYPESCOPE | should combine type and empty scope', (t) => {
+it('COMBINETYPESCOPE | should combine type and empty scope', () => {
   const typeScope = combineTypeScope('myType');
 
-  t.is(typeScope, 'myType:');
+  expect(typeScope).toBe('myType:');
 });
 
-test('COMBINETYPESCOPE | should combine type with : and scope', (t) => {
+it('COMBINETYPESCOPE | should combine type with : and scope', () => {
   const typeScope = combineTypeScope('myType:', 'myScope');
 
-  t.is(typeScope, 'myType (myScope):');
+  expect(typeScope).toBe('myType (myScope):');
 });
 
-test('COMBINETYPESCOPE | should combine type with another delimiter', (t) => {
+it('COMBINETYPESCOPE | should combine type with another delimiter', () => {
   const typeScope = combineTypeScope('myType:', 'myScope', ' -     ');
   const typeScope2 = combineTypeScope('myType:', 'myScope', ' =');
   const typeScope3 = combineTypeScope('myType', 'myScope', ' -');
 
-  t.is(typeScope, 'myType (myScope) -');
-  t.is(typeScope2, 'myType (myScope) =');
-  t.is(typeScope3, 'myType (myScope) -');
+  expect(typeScope).toBe('myType (myScope) -');
+  expect(typeScope2).toBe('myType (myScope) =');
+  expect(typeScope3).toBe('myType (myScope) -');
 });
 
-test('COMBINETYPESCOPE | should combine type with another delimiter but with no space between type | #79', (t) => {
+it('COMBINETYPESCOPE | should combine type with another delimiter but with no space between type | #79', () => {
   const typeScope = combineTypeScope('myType:', 'myScope', ' -     ');
   const typeScope2 = combineTypeScope('myType:', 'myScope', ' =', false);
   const typeScope3 = combineTypeScope('myType', 'myScope', undefined, false);
   const typeNoScope = combineTypeScope('myType', undefined, undefined, false);
   const typeNoScope2 = combineTypeScope('myType', undefined, undefined, true);
 
-  t.is(typeScope, 'myType (myScope) -');
-  t.is(typeScope2, 'myType(myScope) =');
-  t.is(typeScope3, 'myType(myScope):');
-  t.is(typeNoScope, 'myType:');
-  t.is(typeNoScope2, 'myType:');
+  expect(typeScope).toBe('myType (myScope) -');
+  expect(typeScope2).toBe('myType(myScope) =');
+  expect(typeScope3).toBe('myType(myScope):');
+  expect(typeNoScope).toBe('myType:');
+  expect(typeNoScope2).toBe('myType:');
 });
 
-test('FORMATMESSAGE | should format message', (t) => {
+it('FORMATMESSAGE | should format message', () => {
   const message = formatMessage({
     type: 'myType',
     message: '     something      ',
   });
 
-  t.is(message, 'myType: something');
+  expect(message).toBe('myType: something');
 });
 
-test('FORMATMESSAGE | should format message with customType', (t) => {
+it('FORMATMESSAGE | should format message with customType', () => {
   const message = formatMessage({
     message: '     something      ',
     customType: 'custom',
   });
 
-  t.is(message, 'custom: something');
+  expect(message).toBe('custom: something');
 });
 
-test('FORMATMESSAGE | should format with scope', (t) => {
+it('FORMATMESSAGE | should format with scope', () => {
   const message = formatMessage({
     type: 'myType',
     scope: 'myScope',
     message: '     something      ',
   });
 
-  t.is(message, 'myType (myScope): something');
+  expect(message).toBe('myType (myScope): something');
 });
 
-test('FORMATMESSAGE | should format message with body', (t) => {
+it('FORMATMESSAGE | should format message with body', () => {
   const message = formatMessage({
     type: 'myType',
     scope: 'myScope',
@@ -92,10 +90,10 @@ test('FORMATMESSAGE | should format message with body', (t) => {
     editor: 'take this',
   });
 
-  t.is(message, 'take this');
+  expect(message).toBe('take this');
 });
 
-test('FORMATMESSAGE | should format message with argv overrides', (t) => {
+it('FORMATMESSAGE | should format message with argv overrides', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -107,10 +105,10 @@ test('FORMATMESSAGE | should format message with argv overrides', (t) => {
     },
   );
 
-  t.is(message, 'overwrite (myScope): message');
+  expect(message).toBe('overwrite (myScope): message');
 });
 
-test('FORMATMESSAGE | should format message with more argv overrides', (t) => {
+it('FORMATMESSAGE | should format message with more argv overrides', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -124,10 +122,10 @@ test('FORMATMESSAGE | should format message with more argv overrides', (t) => {
     },
   );
 
-  t.is(message, 'myTypeOverwrite (myScopeOverwrite): messageOverwrite');
+  expect(message).toBe('myTypeOverwrite (myScopeOverwrite): messageOverwrite');
 });
 
-test('FORMATMESSAGE | should format when editor is undefined but body is set to true', (t) => {
+it('FORMATMESSAGE | should format when editor is undefined but body is set to true', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -137,10 +135,10 @@ test('FORMATMESSAGE | should format when editor is undefined but body is set to 
     },
   );
 
-  t.is(message, 'myType (myScope): message');
+  expect(message).toBe('myType (myScope): message');
 });
 
-test('FORMATMESSAGE | should format when editor is undefined but body is set to true, and no scopespace', (t) => {
+it('FORMATMESSAGE | should format when editor is undefined but body is set to true, and no scopespace', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -154,10 +152,10 @@ test('FORMATMESSAGE | should format when editor is undefined but body is set to 
     },
   );
 
-  t.is(message, 'myType(myScope): message');
+  expect(message).toBe('myType(myScope): message');
 });
 
-test('FORMATMESSAGE | should take editor when editor is not undefined and body is set to true', (t) => {
+it('FORMATMESSAGE | should take editor when editor is not undefined and body is set to true', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -168,10 +166,10 @@ test('FORMATMESSAGE | should take editor when editor is not undefined and body i
     },
   );
 
-  t.is(message, 'take this');
+  expect(message).toBe('take this');
 });
 
-test('FORMATMESSAGE | should format when editor is not undefined and body is set to false', (t) => {
+it('FORMATMESSAGE | should format when editor is not undefined and body is set to false', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -182,10 +180,10 @@ test('FORMATMESSAGE | should format when editor is not undefined and body is set
     },
   );
 
-  t.is(message, 'myType (myScope): message');
+  expect(message).toBe('myType (myScope): message');
 });
 
-test('FORMATMESSAGE | should format with a delimiter', (t) => {
+it('FORMATMESSAGE | should format with a delimiter', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -200,11 +198,11 @@ test('FORMATMESSAGE | should format with a delimiter', (t) => {
     },
   );
 
-  t.is(message, 'myType (myScope) - message');
+  expect(message).toBe('myType (myScope) - message');
 });
 
 
-test('FORMATMESSAGE | should format with a type specific delimiter', (t) => {
+it('FORMATMESSAGE | should format with a type specific delimiter', () => {
   const message = formatMessage(
     {
       type: 'myType',
@@ -222,5 +220,5 @@ test('FORMATMESSAGE | should format with a type specific delimiter', (t) => {
     },
   );
 
-  t.is(message, 'myType (myScope)--- message');
+  expect(message).toBe('myType (myScope)--- message');
 });
