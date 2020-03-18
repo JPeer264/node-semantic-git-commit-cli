@@ -8,11 +8,11 @@
     "sgc": "./dest/index.js"
   },
   "scripts": {
-    "pretest": "npm run lint & npm run babel",
+    "pretest": "npm run lint & npm run build",
+    "build": "tsc",
     "test": "nyc ava -s",
     "lint": "eslint lib test",
-    "babel": "babel lib -d dest",
-    "prepublish": "npm run babel",
+    "prepublish": "npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "husky": {
@@ -72,7 +72,8 @@
     "nyc": "^13.1.0",
     "proxyquire": "^2.1.0",
     "randomstring": "^1.1.5",
-    "sinon": "^7.1.1"
+    "sinon": "^7.1.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "chalk": "^1.1.3",
