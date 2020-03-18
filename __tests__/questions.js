@@ -164,6 +164,22 @@ it('TYPE | not show if type has been added', () => {
   expect(questionsList[questionsListOrder.type].when()).toBe(false);
 });
 
+it('TYPE | filter correct types', async () => {
+  const config = getConfig();
+  const allChoices = choices(config);
+  const [autocomplete] = questions(config);
+
+  const answerOne = await autocomplete.source(undefined, 'feat');
+  const answerTwo = await autocomplete.source();
+  const answerKey = await autocomplete.source(undefined, 'performance');
+
+  expect(answerOne).toHaveLength(1);
+  expect(answerOne[0].value).toBe('Feat');
+  expect(answerTwo).toHaveLength(allChoices.length);
+  expect(answerKey).toHaveLength(1);
+  expect(answerKey[0].value).toBe('Perf');
+});
+
 it('SCOPE | check if scope is off by default', () => {
   const config = getConfig();
   const questionsList = questions(config);
