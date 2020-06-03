@@ -31,6 +31,18 @@ describe('check', () => {
     expect(process.exit).toBeCalledWith(0);
   });
 
+  it('should have valid initial commits', () => {
+    gitCommitRangeMock.mockReturnValue([
+      'Feat: should be valid',
+      'Initial commit',
+    ]);
+
+    check();
+
+    expect(process.exit).toBeCalledTimes(1);
+    expect(process.exit).toBeCalledWith(0);
+  });
+
   it('should have invalid commits', () => {
     gitCommitRangeMock.mockReturnValue([
       'NotValid : should be valid',

@@ -18,6 +18,21 @@ describe('commitMeetsRules', () => {
     expect(commitMeetsRules('Chore    :   true')).toBe(false);
   });
 
+  it('should have one of the types', () => {
+    getConfigMock.mockReturnValue({
+      lowercaseTypes: true,
+      types: [
+        { type: 'Chore' },
+      ],
+    });
+
+    expect(commitMeetsRules('Feat: false')).toBe(false);
+    expect(commitMeetsRules('feat: false')).toBe(false);
+    expect(commitMeetsRules('chore: true')).toBe(true);
+    expect(commitMeetsRules('Chore: true')).toBe(false);
+    expect(commitMeetsRules('chore    :   true')).toBe(false);
+  });
+
   it('should have one of the types with different delimiter', () => {
     getConfigMock.mockReturnValue({
       delimiter: ' -',
@@ -161,5 +176,27 @@ describe('commitMeetsRules', () => {
     expect(commitMeetsRules('Chore: T\n\nmy body in here')).toBe(false);
     expect(commitMeetsRules('Feat: T\n\nmy body in here')).toBe(true);
     expect(commitMeetsRules('Feat: T\ninvalid body in here')).toBe(false);
+  });
+
+  it('should have initial commit', () => {
+    getConfigMock.mockReturnValue({
+      initialCommit: {
+        isEnabled: true,
+        message: 'initial commit',
+      },
+    });
+
+    expect(commitMeetsRules('initial commit')).toBe(true);
+    expect(commitMeetsRules('Initial commit')).toBe(false);
+
+    getConfigMock.mockReturnValue({
+      initialCommit: {
+        isEnabled: false,
+        message: 'initial commit',
+      },
+    });
+
+    expect(commitMeetsRules('initial commit')).toBe(false);
+    expect(commitMeetsRules('Initial commit')).toBe(false);
   });
 });
