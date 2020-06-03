@@ -117,6 +117,19 @@ Then, update the  `semantic-release ` script to your `package.json` to this :
 }
 ```
 
+## Commands
+
+### check
+
+This will check all commits and will fail if your commits do not meet the defined config.
+
+**Flags**
+  - `start`: A commit SHA to start, in case you started using `sgc` later of your development
+
+```sh
+$ sgc check --start 84a1abd
+```
+
 ## Config
 
 > Just create a `.sgcrc` in your project root or you can add everything in your `package.json` with the value `sgc`
