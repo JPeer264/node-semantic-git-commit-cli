@@ -3,13 +3,13 @@ import chalk from 'chalk';
 
 import commitMeetsRules from './helpers/commitMeetsRules';
 
-const check = ({ start } = {}) => {
-  const commitRangeText = gitCommitRange({
+const check = ({ start }: { start?: string } = {}): void => {
+  const commitRangeText: string[] = gitCommitRange({
     from: start,
     type: 'text',
     includeMerges: false,
   });
-  const commitRangeSha = gitCommitRange({
+  const commitRangeSha: string[] = gitCommitRange({
     from: start,
     includeMerges: false,
   });
@@ -24,6 +24,7 @@ const check = ({ start } = {}) => {
 
       hasErrors = true;
 
+      // eslint-disable-next-line no-console
       console.error(chalk.red(`\n${chalk.bold(commitSha)}\n${commit}`));
     }
 
