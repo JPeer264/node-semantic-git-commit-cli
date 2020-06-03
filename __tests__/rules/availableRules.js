@@ -29,6 +29,8 @@ it('-1 in minChar', () => {
   const shortText = rules.minChar('n', { rules: rulesObj }).check();
   const longText = rules.minChar('this are more than 10 characters', { rules: rulesObj }).check();
 
+  rules.minChar('n', { rules: rulesObj }).message();
+
   expect(shortText).toBe(true);
   expect(longText).toBe(true);
 });
@@ -39,6 +41,8 @@ it('rules mxChar', () => {
   };
   const moreThanMaxChar = rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be false ;-P', { rules: rulesObj }).check();
   const lessThanMaxChar = rules.maxChar('this are less than 72 characters', { rules: rulesObj }).check();
+
+  rules.maxChar('this are more than 72 characters, believe me or not but the value moreThanMaxChar will be false ;-P', { rules: rulesObj }).message();
 
   expect(moreThanMaxChar).toBe(false);
   expect(lessThanMaxChar).toBe(true);
