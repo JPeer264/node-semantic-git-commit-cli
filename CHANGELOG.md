@@ -1,3 +1,13 @@
+3.7.0 - June, 12 2020
+
+* e81cc87 Feat: check commits by command (closes #88) (#90) (Jan Peer Stöcklmair)
+* 1ef051d Test: add test for availableRules .message (JPeer264)
+* c741bbc Chore: add funding.yml (Jan Peer Stöcklmair)
+* 3bea5b5 Chore: update appveyor node install strategy (JPeer264)
+* e175d03 Chore: add local development strategy (JPeer264)
+* c7e8cc3 Feat: test (JPeer264)
+* ba9b038 Chore: remove yarn from travis (JPeer264)
+
 3.6.0 - March, 18 2020
 
 * 9c30f29 Feat: use autocomplete instead of list for types (closes #83) (JPeer264)
