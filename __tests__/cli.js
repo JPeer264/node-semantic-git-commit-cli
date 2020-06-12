@@ -7,7 +7,7 @@ import cli from '../lib/cli';
 import sgcPrompt from '../lib/helpers/sgcPrompt';
 import retryCommit from '../lib/helpers/retryCommit';
 import promptOrInitialCommit from '../lib/helpers/promptOrInitialCommit';
-import getConfig from '../lib/getConfig';
+import Config from '../lib/Config';
 
 import pkg from '../package.json';
 
@@ -17,13 +17,11 @@ jest.mock('git-commit-count');
 jest.mock('../lib/helpers/sgcPrompt');
 jest.mock('../lib/helpers/retryCommit');
 jest.mock('../lib/helpers/promptOrInitialCommit');
-jest.mock('../lib/getConfig');
 
 beforeEach(() => {
   sgcPrompt.mockReset();
   retryCommit.mockReset();
   promptOrInitialCommit.mockReset();
-  getConfig.mockReset();
   console.log = jest.fn();
   console.error = jest.fn();
 });
@@ -61,7 +59,7 @@ it('should prompt init', async () => {
   isGit.mockReturnValue(true);
   isAdded.mockReturnValue(true);
   commitCount.mockReturnValue(0);
-  getConfig.mockReturnValue({ initialCommit: { isEnabled: true } });
+  jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({ initialCommit: { isEnabled: true } });
   await cli();
 
   expect(promptOrInitialCommit).toBeCalledTimes(1);
@@ -71,7 +69,7 @@ it('should not prompt init', async () => {
   isGit.mockReturnValue(true);
   isAdded.mockReturnValue(true);
   commitCount.mockReturnValue(0);
-  getConfig.mockReturnValue({ initialCommit: { isEnabled: false } });
+  jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({ initialCommit: { isEnabled: false } });
   await cli();
 
   expect(promptOrInitialCommit).not.toBeCalled();

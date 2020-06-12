@@ -1,8 +1,8 @@
-import getConfig from '../getConfig';
+import Config from '../Config';
 import rules from '../rules/availableRules';
 
 const commitMeetsRules = (commit: string): boolean => {
-  const config = getConfig();
+  const { config } = new Config();
 
   // commit exceptions
   if (config.initialCommit?.isEnabled && commit === config.initialCommit?.message) {

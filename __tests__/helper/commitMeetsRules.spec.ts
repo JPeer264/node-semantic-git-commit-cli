@@ -1,13 +1,9 @@
-import getConfig from '../../lib/getConfig';
+import Config from '../../lib/Config';
 import commitMeetsRules from '../../lib/helpers/commitMeetsRules';
-
-jest.mock('../../lib/getConfig', jest.fn);
-
-const getConfigMock = getConfig as jest.MockedFunction<typeof getConfig>;
 
 describe('commitMeetsRules', () => {
   it('should have one of the types', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       types: [
         { type: 'Chore' },
       ],
@@ -18,8 +14,8 @@ describe('commitMeetsRules', () => {
     expect(commitMeetsRules('Chore    :   true')).toBe(false);
   });
 
-  it('should have one of the types', () => {
-    getConfigMock.mockReturnValue({
+  it('should have one of the types 2', () => {
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       lowercaseTypes: true,
       types: [
         { type: 'Chore' },
@@ -34,7 +30,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have one of the types with different delimiter', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       delimiter: ' -',
       types: [
         { type: 'Chore' },
@@ -49,7 +45,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should not have scope', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       scope: false,
       types: [
         { type: 'Feat' },
@@ -67,7 +63,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have optional scope', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       scope: true,
       types: [
         { type: 'Feat' },
@@ -84,7 +80,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have optional scope with scopespace', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       scope: true,
       addScopeSpace: true,
       types: [
@@ -102,7 +98,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have dot ending', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       rules: {
         endWithDot: true,
       },
@@ -118,7 +114,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have no dot ending', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       rules: {
         endWithDot: false,
       },
@@ -134,7 +130,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have correct length', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       rules: {
         maxChar: 10,
         minChar: 8,
@@ -152,7 +148,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have no length', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       types: [
         { type: 'Feat' },
       ],
@@ -166,7 +162,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have body', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       body: true,
       types: [
         { type: 'Feat' },
@@ -179,7 +175,7 @@ describe('commitMeetsRules', () => {
   });
 
   it('should have initial commit', () => {
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       initialCommit: {
         isEnabled: true,
         message: 'initial commit',
@@ -189,7 +185,7 @@ describe('commitMeetsRules', () => {
     expect(commitMeetsRules('initial commit')).toBe(true);
     expect(commitMeetsRules('Initial commit')).toBe(false);
 
-    getConfigMock.mockReturnValue({
+    jest.spyOn(Config.prototype, 'config', 'get').mockReturnValue({
       initialCommit: {
         isEnabled: false,
         message: 'initial commit',

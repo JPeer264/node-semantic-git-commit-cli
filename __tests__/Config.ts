@@ -1,9 +1,9 @@
 import fs from 'fs-extra';
-import json from 'json-extra';
+import * as json from 'json-extra';
 import os from 'os';
 import path from 'path';
 
-import getConfig from '../lib/getConfig';
+import Config from '../lib/Config';
 
 const cwd = process.cwd();
 const homedir = os.homedir();
@@ -37,13 +37,13 @@ afterAll(() => {
 });
 
 it('read config from a specific path', () => {
-  expect(getConfig(fixtures)).toEqual(json.readToObjSync(path.join(fixtures, '.sgcrc')));
+  expect(new Config(fixtures).config).toEqual(json.readToObjSync(path.join(fixtures, '.sgcrc')));
 });
 
 it('read config from a .sgcrc_default', () => {
   const globalConfig = json.readToObjSync(path.join(cwd, '.sgcrc_default'));
 
-  expect(getConfig()).toEqual(globalConfig);
+  expect(new Config().config).toEqual(globalConfig);
 });
 
 it('read config from package.json', () => {
@@ -56,7 +56,7 @@ it('read config from package.json', () => {
   fs.renameSync(path.join(cwd, 'package.json'), path.join(cwd, `package.json.${randomString}-${datetime}.back`));
   fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(packageJson));
 
-  const config = getConfig();
+  const { config } = new Config();
 
   // revert local package
   fs.removeSync(path.join(cwd, 'package.json'));
@@ -69,7 +69,7 @@ it('read global config', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(homedir, '.sgcrc'), JSON.stringify(sgcrc));
-  expect(getConfig()).toEqual(sgcrc);
+  expect(new Config().config).toEqual(sgcrc);
   fs.removeSync(path.join(homedir, '.sgcrc'));
 });
 
@@ -77,7 +77,7 @@ it('read local config from `sgc.config.js`', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(cwd, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
-  expect(getConfig()).toEqual(sgcrc);
+  expect(new Config().config).toEqual(sgcrc);
   fs.removeSync(path.join(cwd, 'sgc.config.js'));
 });
 
@@ -85,7 +85,7 @@ it('read global config from `sgc.config.js`', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(homedir, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
-  expect(getConfig()).toEqual(sgcrc);
+  expect(new Config().config).toEqual(sgcrc);
   fs.removeSync(path.join(homedir, 'sgc.config.js'));
 });
 
@@ -93,5 +93,5 @@ it('read a .sgcrc_default from a deep nested cwd', () => {
   const deepCwd = path.join(fixtures, 'very', 'deep', 'directory');
   const fixturesConfig = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
-  expect(getConfig(deepCwd)).toEqual(fixturesConfig);
+  expect(new Config(deepCwd).config).toEqual(fixturesConfig);
 });

@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import { stub } from 'sinon';
 
 import { withEmoji, withoutEmoji } from './fixtures/questions';
-import getConfig from '../lib/getConfig';
+import Config from '../lib/Config';
 import questions, {
   choices,
   customName,
@@ -56,14 +56,14 @@ afterAll(() => {
 });
 
 it('choices are rendered without emoji', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
   const choicesList = choices(sgc);
 
   expect(choicesList).toEqual(withoutEmoji);
 });
 
 it('choices are rendered with emoji (default)', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.emoji = true;
 
@@ -73,7 +73,7 @@ it('choices are rendered with emoji (default)', () => {
 });
 
 it('choices are rendered as custom type', () => {
-  const sgc = getConfig(fixtures, '.sgcrc.customType');
+  const sgc = new Config(fixtures, '.sgcrc.customType').config;
 
   sgc.emoji = false;
   sgc.types[0].type = false;
@@ -86,14 +86,14 @@ it('choices are rendered as custom type', () => {
 });
 
 it('check the values of the question object', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(typeof questionsList).toBe('object');
 });
 
 it('alternative description', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.types[0].description = undefined;
 
@@ -103,7 +103,7 @@ it('alternative description', () => {
 });
 
 it('correct description', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.types[0].description = 'lala land';
 
@@ -113,7 +113,7 @@ it('correct description', () => {
 });
 
 it('wrong argKeys', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.types[0].argKeys = 'wrong';
 
@@ -123,7 +123,7 @@ it('wrong argKeys', () => {
 });
 
 it('correct argKeys', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.types[0].argKeys = ['n', 'notwrong'];
 
@@ -133,7 +133,7 @@ it('correct argKeys', () => {
 });
 
 it('TYPES | upperCase (default)', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   const choicesList = choices(sgc);
 
@@ -141,7 +141,7 @@ it('TYPES | upperCase (default)', () => {
 });
 
 it('TYPES | lowerCase', () => {
-  const sgc = getConfig(fixtures, '.sgcrc');
+  const sgc = new Config(fixtures, '.sgcrc').config;
 
   sgc.lowercaseTypes = true;
 
@@ -151,21 +151,21 @@ it('TYPES | lowerCase', () => {
 });
 
 it('TYPE | just show if type has not been added', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.type].when()).toBe(true);
 });
 
 it('TYPE | not show if type has been added', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config, { t: 'feat' });
 
   expect(questionsList[questionsListOrder.type].when()).toBe(false);
 });
 
 it('TYPE | filter correct types', async () => {
-  const config = getConfig();
+  const { config } = new Config();
   const allChoices = choices(config);
   const [autocomplete] = questions(config);
 
@@ -181,14 +181,14 @@ it('TYPE | filter correct types', async () => {
 });
 
 it('SCOPE | check if scope is off by default', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.scope].when()).toBe(false);
 });
 
 it('CUSTOMTYPE | check if customType gets shown when type is defined', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.customType].when({ type: 'Feat:' })).toBe(false);
@@ -196,7 +196,7 @@ it('CUSTOMTYPE | check if customType gets shown when type is defined', () => {
 });
 
 it('CUSTOMTYPE | check if customType gets shown when type is custom', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.customType].when({ type: customName })).toBe(true);
@@ -204,7 +204,7 @@ it('CUSTOMTYPE | check if customType gets shown when type is custom', () => {
 });
 
 it('CUSTOMTYPE | should not show when argv is specified', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
   const questionsList = questions(config, { c: 'Feat:' });
 
   expect(questionsList[questionsListOrder.customType].when({ type: customName })).toBe(false);
@@ -212,7 +212,7 @@ it('CUSTOMTYPE | should not show when argv is specified', () => {
 });
 
 it('CUSTOMTYPE | return prefixed answer', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
 
   config.types[0].prefix = 'myprefix';
 
@@ -222,7 +222,7 @@ it('CUSTOMTYPE | return prefixed answer', () => {
 });
 
 it('CUSTOMTYPE | return nonprefixed answer', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
 
   config.types[0].prefix = undefined;
 
@@ -232,21 +232,21 @@ it('CUSTOMTYPE | return nonprefixed answer', () => {
 });
 
 it('CUSTOMTYPE | return any type', () => {
-  const config = getConfig(fixtures, '.sgcrc.customType');
+  const { config } = new Config(fixtures, '.sgcrc.customType');
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.customType].filter('something', { type: 'none' })).toBe('something');
 });
 
 it('SCOPE | check if scope is off when it has been added by argv', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config, { s: 'some scope' });
 
   expect(questionsList[questionsListOrder.scope].when()).toBe(false);
 });
 
 it('SCOPE | check if scope is off when it has been added in config and argv', () => {
-  const config = getConfig();
+  const { config } = new Config();
 
   config.scope = true;
 
@@ -256,7 +256,7 @@ it('SCOPE | check if scope is off when it has been added in config and argv', ()
 });
 
 it('SCOPE | check if scope is on when it has been added just in config', () => {
-  const config = getConfig();
+  const { config } = new Config();
 
   config.scope = true;
 
@@ -266,7 +266,7 @@ it('SCOPE | check if scope is on when it has been added just in config', () => {
 });
 
 it('SCOPE | check if scope validates correctly', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.scope].validate('not correct')).toBe('No whitespaces allowed');
@@ -274,7 +274,7 @@ it('SCOPE | check if scope validates correctly', () => {
 });
 
 it('MESSAGE | validate functions in questions', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.message].validate('', { type: 'Fix' })).toBe('The commit message is not allowed to be empty');
@@ -283,21 +283,21 @@ it('MESSAGE | validate functions in questions', () => {
 });
 
 it('MESSAGE | do not show if there is the message in argv', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config, { m: 'something' });
 
   expect(questionsList[questionsListOrder.message].when()).toBe(false);
 });
 
 it('MESSAGE | show if no argv has been added', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.message].when()).toBe(true);
 });
 
 it('EDITOR | when and default functions in questions', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.editor].when({ body: true })).toBe(true);
@@ -305,21 +305,21 @@ it('EDITOR | when and default functions in questions', () => {
 });
 
 it('EDITOR | should return formatted message', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.editor].default({ message: 'message', type: 'type' })).toBe('type: message\n\n\n');
 });
 
 it('CONFIRM EDITOR | check if it shows if it has to', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[3].when()).toBe(config.body);
 });
 
 it('CONFIRM EDITOR | check if it returns config.body', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const questionsList = questions(config);
 
   expect(questionsList[questionsListOrder.body].when()).toBe(config.body);
@@ -327,14 +327,14 @@ it('CONFIRM EDITOR | check if it returns config.body', () => {
 
 
 it('INIT COMMIT | check message without emoji', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const message = initMessage(config);
 
   expect(message).toBe(config.initialCommit.message);
 });
 
 it('INIT COMMIT | check message with emoji', () => {
-  const config = getConfig();
+  const { config } = new Config();
 
   config.emoji = true;
 
@@ -344,14 +344,14 @@ it('INIT COMMIT | check message with emoji', () => {
 });
 
 it('INIT QUESTION | check message without emoji', () => {
-  const config = getConfig();
+  const { config } = new Config();
   const question = initQuestion(config);
 
   expect(question.message).toBe(`Confirm as first commit message: "${config.initialCommit.message}"`);
 });
 
 it('INIT QUESTION | check message with emoji', () => {
-  const config = getConfig();
+  const { config } = new Config();
 
   config.emoji = true;
 
