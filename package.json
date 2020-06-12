@@ -50,6 +50,8 @@
   ],
   "homepage": "https://github.com/JPeer264/node-semantic-git-commit-cli#readme",
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/jest": "^25.2.3",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "coveralls": "^2.12.0",
@@ -71,6 +73,7 @@
     "findup-sync": "^4.0.0",
     "fs-extra": "^7.0.0",
     "git-commit-count": "^1.1.2",
+    "git-commit-range": "^1.2.0",
     "inquirer": "^7.1.0",
     "inquirer-autocomplete-prompt": "^1.0.2",
     "is-git-added": "^1.0.1",

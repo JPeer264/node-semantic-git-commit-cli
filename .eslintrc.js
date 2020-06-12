@@ -16,9 +16,33 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-dupe-class-members': 'off',
+      },
+    },
+  ],
   plugins: [
     '@typescript-eslint',
   ],
   rules: {
-  },
+    '@typescript-eslint/explicit-function-return-type': ['warn', {
+      allowTypedFunctionExpressions: true,
+      allowExpressions: true,
+    }],
+    'import/extensions': ['error', 'ignorePackages', {
+      js: 'never',
+      ts: 'never',
+    }],
+    'no-shadow-restricted-names': 'off',
+  }
 };
