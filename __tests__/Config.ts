@@ -69,24 +69,36 @@ it('read global config', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(homedir, '.sgcrc'), JSON.stringify(sgcrc));
-  expect(new Config().config).toEqual(sgcrc);
+
+  const { config } = new Config();
+
   fs.removeSync(path.join(homedir, '.sgcrc'));
+
+  expect(config).toEqual(sgcrc);
 });
 
 it('read local config from `sgc.config.js`', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(cwd, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
-  expect(new Config().config).toEqual(sgcrc);
+
+  const { config } = new Config();
+
   fs.removeSync(path.join(cwd, 'sgc.config.js'));
+
+  expect(config).toEqual(sgcrc);
 });
 
 it('read global config from `sgc.config.js`', () => {
   const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
 
   fs.writeFileSync(path.join(homedir, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
-  expect(new Config().config).toEqual(sgcrc);
+
+  const { config } = new Config();
+
   fs.removeSync(path.join(homedir, 'sgc.config.js'));
+
+  expect(config).toEqual(sgcrc);
 });
 
 it('read a .sgcrc_default from a deep nested cwd', () => {
