@@ -34,13 +34,13 @@ export interface SgcConfig {
 }
 
 class Config {
-  altPath: string | null;
+  alternativeCwd: string | null;
 
-  fileName: string;
+  sgcConfigName: string;
 
-  constructor(altPath: string | null = null, fileName = '.sgcrc') {
-    this.altPath = altPath;
-    this.fileName = fileName;
+  constructor(alternativeCwd: string | null = null, sgcConfigName = '.sgcrc') {
+    this.alternativeCwd = alternativeCwd;
+    this.sgcConfigName = sgcConfigName;
 
     this.setConfig();
   }
@@ -60,9 +60,11 @@ class Config {
 
   private getConfigPath(): { path: string; defaultPath: string; type: 'rc' | 'js' | 'pkg' } {
     // paths
-    const localPath = Config.getPath(findup(this.fileName, { cwd: this.altPath || cwd }));
+    const localPath = Config.getPath((
+      findup(this.sgcConfigName, { cwd: this.alternativeCwd || cwd })
+    ));
     const localJsPath = Config.getPath(findup('sgc.config.js', { cwd }));
-    const globalPath = Config.getPath(path.join(homedir, this.fileName));
+    const globalPath = Config.getPath(path.join(homedir, this.sgcConfigName));
     const globalJsPath = Config.getPath(path.join(homedir, 'sgc.config.js'));
     const packageJson = Config.getPath(findup('package.json', { cwd }));
     const defaultPath = Config.getPath(path.join(__dirname, '..', '.sgcrc')) as string;
@@ -154,6 +156,10 @@ class Config {
 
   public get config(): SgcConfig {
     return this.setConfig();
+  }
+
+  public get configPath(): string {
+    return this.getConfigPath().path;
   }
 }
 

@@ -107,3 +107,21 @@ it('read a .sgcrc_default from a deep nested cwd', () => {
 
   expect(new Config(deepCwd).config).toEqual(fixturesConfig);
 });
+
+it('should get the right config path', () => {
+  const sgcrc = json.readToObjSync(path.join(fixtures, '.sgcrc'));
+
+  fs.writeFileSync(path.join(homedir, 'sgc.config.js'), `module.exports = (${JSON.stringify(sgcrc)})`);
+
+  const { configPath } = new Config();
+
+  fs.removeSync(path.join(homedir, 'sgc.config.js'));
+
+  expect(path.basename(configPath)).toBe('sgc.config.js');
+});
+
+it('should get the right config path', () => {
+  const { configPath } = new Config();
+
+  expect(path.basename(configPath)).toBe('package.json');
+});
