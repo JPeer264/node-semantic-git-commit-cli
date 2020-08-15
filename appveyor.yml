@@ -1,16 +1,12 @@
-# Test against this version of Node.js
 environment:
   matrix:
-    # node.js
-    - nodejs_version: 8
-    - nodejs_version: 10
-    - nodejs_version: 12
+    - nodejs_version: "10"
+    - nodejs_version: "12"
+    - nodejs_version: "14"
 
 platform:
-  - x86
   - x64
 
-# Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: |
@@ -22,15 +18,11 @@ install:
       }
   # install modules
   - npm config set loglevel warn
-  - npm i
+  - npm i -g npm
+  - npm ci
 
-# Post-install test scripts.
 test_script:
-  # Output useful info for debugging.
-  - node --version
-  - npm --version
-  # run tests
+  - npm run lint
   - npm test
 
-# Don't actually build.
 build: off
