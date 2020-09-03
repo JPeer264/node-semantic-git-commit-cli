@@ -74,6 +74,7 @@ it('read global config', () => {
 
   fs.removeSync(path.join(homedir, '.sgcrc'));
 
+  expect(homedir).toBe('test');
   expect(config).toEqual(sgcrc);
 });
 
