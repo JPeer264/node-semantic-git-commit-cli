@@ -201,7 +201,6 @@ it('FORMATMESSAGE | should format with a delimiter', () => {
   expect(message).toBe('myType (myScope) - message');
 });
 
-
 it('FORMATMESSAGE | should format with a type specific delimiter', () => {
   const message = formatMessage(
     {

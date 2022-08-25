@@ -12,7 +12,7 @@ describe('check', () => {
     global.process.exit = jest.fn() as any;
     global.console.error = jest.fn() as any;
 
-    chalk.enabled = false;
+    chalk.level = 0;
   });
 
   it('should have valid commits', () => {

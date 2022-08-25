@@ -325,7 +325,6 @@ it('CONFIRM EDITOR | check if it returns config.body', () => {
   expect(questionsList[questionsListOrder.body].when()).toBe(config.body);
 });
 
-
 it('INIT COMMIT | check message without emoji', () => {
   const { config } = new Config();
   const message = initMessage(config);
